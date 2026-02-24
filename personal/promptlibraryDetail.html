@@ -1,0 +1,1639 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- 防止HTML页面缓存 -->
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Expert-Level AI Prompt Library</title>
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+    <link href="./dist/css/tabler.min.css?1692870487" rel="stylesheet" />
+    <script src="./js/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/neon.css" />
+    <script src="https://gosspublic.alicdn.com/aliyun-oss-sdk-5.3.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.15.14/index.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.15.14/theme-chalk/index.css">
+    
+    <style>
+      .pageloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #222;
+      }
+
+      .content:before {
+        content: "";
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background: #000;
+      }
+
+      .content {
+        position: relative;
+        padding: 32px 20px 20px 20px;
+        background: transparent;
+        min-height: 100vh;
+      }
+
+      .header_box {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .cut_btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 0, 0, 0.8) 0%,
+          rgba(40, 40, 40, 0.6) 100%
+        );
+        border-color: rgba(255, 255, 255, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 16px 0px;
+        flex-shrink: 0;
+        margin-right: 12px;
+      }
+
+      .cut_btn:hover {
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .cut_btn svg {
+        width: 18px;
+        height: 18px;
+        color: #fff;
+      }
+
+      .library {
+        position: relative;
+        margin: 0 auto;
+        padding: 1.5rem;
+        width: max-content;
+        --tw-bg-opacity: 1;
+        background-color: rgb(10 10 10 / var(--tw-bg-opacity));
+        --tw-border-opacity: 1;
+        border: 1px solid rgb(36 38 40 / var(--tw-border-opacity));
+        border-radius: 10px;
+        z-index: 10;
+        overflow: hidden;
+      }
+
+      .imgbg {
+        color: transparent;
+        object-position: left;
+        width: 100%;
+        /* height: 100%; */
+        object-fit: cover;
+        pointer-events: none;
+        display: block;
+        vertical-align: middle;
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+      }
+
+      .library_header {
+        width: 100%;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .header_left {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      .icon_box {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      .icon_box div {
+        width: 38px;
+        height: 38px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #fff;
+        border-radius: 10px;
+        margin-right: 10px;
+        transition: transform 0.3s ease;
+      }
+
+      .icon_box div:hover {
+        transform: scale(1.3);
+      }
+
+      .icon_box div:last-child {
+        margin: 0;
+      }
+
+      .icon_box img {
+        width: 100%;
+      }
+
+      .header_right {
+        color: rgb(209 213 219);
+        font-size: 16px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .library_back {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        color: rgb(209 213 219);
+        font-size: 14px;
+        height: 40px !important;
+        margin-left: 14px;
+        padding: 0 16px !important;
+        border-color: rgb(175 177 182 / var(--tw-border-opacity)) !important;
+      }
+
+      .library_back svg {
+        width: 16px !important;
+        height: 16px !important;
+        margin-right: 4px;
+      }
+
+      .bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #00000099;
+      }
+
+      .library_box {
+        max-width: 900px;
+        margin: 20px auto 0;
+      }
+
+      .item {
+        padding: 24px;
+        border-radius: 16px;
+        border: 1px solid rgb(48 50 54);
+        margin-bottom: 24px;
+      }
+
+      .none {
+        display: none;
+      }
+
+      .item_b {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .item_b .title {
+        color: #fff;
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      .item_b .text {
+        color: rgb(209 213 219);
+        font-size: 14px;
+        display: flex;
+      }
+
+      .text_icon {
+        flex-shrink: 0;
+        margin-right: 4px;
+      }
+
+      .item_b .browse {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        color: #9ca3af;
+        font-size: 14px;
+        margin-top: 8px;
+      }
+
+      .item_b .browse svg {
+        width: 14px !important;
+        height: 14px !important;
+        margin-right: 4px;
+        margin-top: 2px;
+      }
+
+      .level_t {
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .settings {
+        width: 21px;
+        height: 21px;
+        margin-right: 6px;
+        margin-top: 5px;
+      }
+
+      .level_text {
+        width: 100%;
+      }
+
+      .level_text div,
+      .level_text span,
+      .level_box div,
+      .level_box span {
+        color: rgb(209 213 219) !important;
+        background: transparent !important;
+        font-size: 14px !important;
+      }
+
+      .level_text_cn {
+        margin-top: 8px;
+        padding-left: 27px;
+      }
+
+      .level_text img {
+        width: 100%;
+        margin-top: 16px;
+      }
+
+      .level_copy {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .level_copy div {
+        display: flex;
+      }
+
+      .btn_copy {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+
+      .btn_copy.active {
+        background: #2fb344;
+        /* 绿色 */
+        color: #fff;
+      }
+
+      .btn_copy svg {
+        width: 14px !important;
+        height: 14px !important;
+        margin-right: 4px;
+      }
+
+      .mt-1 {
+        margin-top: 16px !important;
+      }
+
+      .level_box {
+        padding-left: 27px;
+        width: 100%;
+        margin-top: 16px;
+        color: rgb(229 231 235);
+        line-height: 1.8;
+        font-size: 14px;
+        position: relative;
+      }
+
+      .level_box .level_bg {
+        background: rgba(0, 0, 0, 0.1) !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* 新增模糊属性 */
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px); /* 兼容 Safari 浏览器 */
+        border-radius: 8px;
+      }
+
+      .level_box .level_payment {
+        padding: 8px 36px;
+        background: rgb(0 229 153) !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff !important;
+        border-radius: 24px;
+        font-size: 18px !important;
+        cursor: pointer;
+      }
+
+      .level_box .level_payment svg {
+        margin-right: 8px;
+      }
+
+      .recommend {
+        width: 100%;
+        color: #fff;
+        display: flex;
+        overflow-y: hidden;
+        overflow-x: auto;
+        margin-top: 20px;
+        padding: 3px;
+        padding-bottom: 10px;
+      }
+
+      .recommend::-webkit-scrollbar {
+        height: 10px;
+      }
+
+      .recommend::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+      }
+
+      /* 推荐 */
+      .swiper_item {
+        overflow: hidden;
+        transition: transform 0.5s ease;
+        cursor: pointer;
+        flex-shrink: 0;
+        width: 40%;
+        margin-right: 16px;
+      }
+
+      .swiper_item:last-child {
+        margin-right: 0;
+      }
+
+      .swiper_item_b {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .swiper_new_tips {
+        background: linear-gradient(
+          135deg,
+          rgba(220, 38, 38, 0.9) 0%,
+          rgba(239, 68, 68, 0.9) 100%
+        );
+        color: #fff;
+        font-weight: bold;
+        font-size: 12px;
+        padding: 0px 8px 2px 8px;
+        border-radius: 10px;
+        margin-bottom: 8px;
+        margin-top: 4px;
+      }
+
+      .swiper_item_b .swiper_title {
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 8px;
+        transition: transform 0.5s ease;
+      }
+
+      .swiper_item_b .swiper_text {
+        color: rgb(209 213 219);
+        font-size: 14px;
+        margin-bottom: 8px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .swiper_item_b .swiper_browse {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        color: #9ca3af;
+        font-size: 14px;
+      }
+
+      .swiper_item_b .swiper_browse svg {
+        width: 14px !important;
+        height: 14px !important;
+        margin-right: 4px;
+        margin-top: 2px;
+      }
+
+      .info_icon {
+        color: #4299e1;
+      }
+
+      .info_icon svg {
+        margin-top: 4px;
+        margin-right: 4px;
+      }
+
+      .tishici {
+        margin-bottom: 20px;
+      }
+
+      .Top_Nav {
+        position: relative;
+        z-index: 9;
+      }
+
+      .page-body {
+        margin-top: 0 !important;
+      }
+
+      @media screen and (max-width: 1400px) {
+      }
+
+      @media (max-width: 768px) {
+        .icon_box div {
+          margin-right: 0px;
+        }
+
+        .icon_box {
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        .content {
+          padding: 10px 10px 10px;
+        }
+
+        .item {
+          margin-bottom: 16px;
+        }
+
+        .swiper_item {
+          width: 70%;
+        }
+
+        .header_box {
+          display: block;
+        }
+
+        .header_right {
+          margin-top: 20px;
+        }
+
+        .Left_Nav {
+          position: relative;
+          z-index: 999;
+        }
+
+        .library {
+          width: 100%;
+          padding: 10px;
+        }
+      }
+
+      /* --- 新增：用户反馈功能样式 --- */
+      .feedback-fab {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(145deg, #2a2d32, #1f2125);
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1000;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgb(48 50 54);
+        transition: all 0.3s ease;
+        color: #fff;
+        font-size: 13px;
+        text-align: center;
+      }
+
+      .feedback-fab:hover {
+        transform: scale(1.1);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
+      }
+
+      .feedback-fab svg {
+        color: rgb(0 229 153);
+        width: 28px;
+        height: 28px;
+        display: inline-block;
+      }
+
+      .feedback-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+      }
+
+      .feedback-modal-overlay.visible {
+        display: flex;
+      }
+
+      .feedback-modal-content {
+        background-color: #09090b;
+        border: 1px solid rgb(48 50 54);
+        border-radius: 16px;
+        width: 90%;
+        max-width: 550px;
+        padding: 24px 32px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        transform: scale(0.95);
+        transition: transform 0.3s ease;
+      }
+
+      .feedback-modal-overlay.visible .feedback-modal-content {
+        transform: scale(1);
+      }
+
+      .feedback-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+        margin-bottom: 20px;
+      }
+
+      .feedback-modal-header .title {
+        font-size: 22px;
+        font-weight: bold;
+      }
+
+      .feedback-modal-header .close-btn {
+        cursor: pointer;
+        color: #9ca3af;
+        transition: color 0.2s;
+      }
+
+      .feedback-modal-header .close-btn:hover {
+        color: #fff;
+      }
+
+      .feedback-modal-header .close-btn svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .feedback-form-item label,
+      .feedback-upload-area label {
+        display: block;
+        color: rgb(175, 177, 182);
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+
+      .feedback-form-item textarea {
+        width: 100%;
+        height: 120px;
+        background-color: #1a1a1a;
+        border: 1px solid rgb(48 50 54);
+        border-radius: 8px;
+        padding: 12px;
+        color: #e5e7eb;
+        font-size: 14px;
+        resize: vertical;
+        transition:
+          border-color 0.3s,
+          box-shadow 0.3s;
+      }
+
+      .feedback-form-item textarea:focus {
+        outline: none;
+        border-color: #00e5bf;
+        box-shadow: 0 0 0 3px rgba(0, 229, 191, 0.2);
+      }
+
+      .feedback-upload-area {
+        margin-top: 20px;
+      }
+
+      .feedback-upload-box {
+        width: 100%;
+        height: 150px;
+        border: 2px dashed rgb(48 50 54);
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: #9ca3af;
+        cursor: pointer;
+        transition: border-color 0.3s;
+      }
+
+      .feedback-upload-box svg {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 8px;
+      }
+
+      .feedback-image-preview {
+        margin-top: 20px;
+        position: relative;
+        width: 150px;
+        height: 150px;
+      }
+
+      .feedback-image-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid rgb(48 50 54);
+      }
+
+      .feedback-image-preview .remove-img-btn {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        width: 24px;
+        height: 24px;
+        background-color: #ef4444;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 1;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      .feedback-modal-footer {
+        margin-top: 24px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+      }
+
+      .feedback-btn {
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        transition: all 0.2s;
+      }
+
+      .btn-cancel {
+        background-color: transparent;
+        border: 1px solid rgb(48 50 54);
+        color: #d1d5db;
+      }
+
+      .btn-cancel:hover {
+        background-color: rgb(48 50 54);
+      }
+
+      .btn-submit {
+        background-color: rgb(0 299 153);
+        color: #09090b;
+      }
+
+      .btn-submit:hover {
+        background-color: rgb(0 299 191);
+      }
+
+      .btn-submit:disabled {
+        background-color: #555;
+        color: #999;
+        cursor: not-allowed;
+      }
+
+      .uplock {
+        position: absolute;
+        bottom: 16px;
+        right: 16px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="pageloader">
+      <div class="container container-slim py-4">
+        <div class="text-center">
+          <div class="text-white mb-3">Loading…</div>
+          <div class="progress progress-sm">
+            <div class="progress-bar progress-bar-indeterminate"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page">
+      <!-- Navbar -->
+      <div id="header"></div>
+      <div class="page-wrapper">
+        <div class="page-body">
+          <div id="vue_app">
+            <!-- 新增：悬浮反馈按钮 -->
+            <div
+              class="feedback-fab"
+              @click="openFeedbackModal"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+              title="Feedback"
+            >
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
+                  ></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <line x1="10" y1="9" x2="8" y2="9"></line></svg><br />
+                Feedback
+              </div>
+            </div>
+
+            <!-- 新增：反馈弹窗 -->
+            <div
+              class="feedback-modal-overlay"
+              :class="{ 'visible': feedback.modalVisible }"
+              @click.self="closeFeedbackModal"
+            >
+              <div class="feedback-modal-content" v-if="feedback.modalVisible">
+                <div class="feedback-modal-header">
+                  <div class="title">
+                    Prompt {{ detailInfo.Title_EN }} Feedback
+                  </div>
+                  <div class="close-btn" @click="closeFeedbackModal">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </div>
+                </div>
+                <div class="feedback-modal-body">
+                  <div class="feedback-form-item">
+                    <label for="feedback-desc"
+                      >Describe the issue or suggestion</label
+                    >
+                    <textarea
+                      id="feedback-desc"
+                      v-model="feedback.description"
+                      placeholder="Please provide a detailed description of the issue or suggestion you encountered. This will help us improve faster."
+                    ></textarea>
+                  </div>
+                  <div class="feedback-upload-area">
+                    <label>Upload Screenshot (Optional)</label>
+                    <div
+                      v-if="!feedback.imageUrl"
+                      class="feedback-upload-box"
+                      @click="$refs.fileInput.click()"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                        ></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                      </svg>
+                      <span>Click to upload image</span>
+                      <input
+                        type="file"
+                        ref="fileInput"
+                        @change="handleFileSelect"
+                        accept="image/*"
+                        style="display: none"
+                      />
+                    </div>
+                    <div v-else class="feedback-image-preview">
+                      <img :src="feedback.imageUrl" alt="Image Preview" />
+                      <div
+                        class="remove-img-btn"
+                        @click="removeSelectedImage"
+                        title="Remove Image"
+                      >
+                        &times;
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="feedback-modal-footer">
+                  <button
+                    class="feedback-btn btn-cancel"
+                    @click="closeFeedbackModal"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    class="feedback-btn btn-submit"
+                    @click="submitFeedback"
+                    :disabled="feedback.isSubmitting"
+                  >
+                    {{ feedback.isSubmitting ? 'Submitting...' : 'Submit' }}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="content">
+              <div class="bg"></div>
+              <div class="library">
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  fetchpriority="high"
+                  width="704"
+                  height="315"
+                  decoding="async"
+                  data-nimg="1"
+                  class="imgbg"
+                  srcset="
+                    https://neon.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcard-bg-1.a765e225.jpg&w=750&q=75&dpl=dpl_CgU7PCC7eQZJbcXEbqiE6azvrpnd
+                  "
+                  src="https://neon.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcard-bg-1.a765e225.jpg&w=750&q=75&dpl=dpl_CgU7PCC7eQZJbcXEbqiE6azvrpnd"
+                  style="color: transparent"
+                />
+
+                <div class="library_header">
+                  <div class="header_box">
+                    <div class="header_left">
+                      <div class="icon_box">
+                        <div v-for="(item,index) in iconData" :key="index">
+                          <a :href="item.link" target="_blank">
+                            <img :src="item.url" alt="" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="header_right">
+                      <!-- <div class="cut_btn" @click="cutLanguage" title="切换语言">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-languages w-4 h-4 text-white"><path d="m5 8 6 6"></path><path d="m4 14 6-6 2-3"></path><path d="M2 5h12"></path><path d="M7 2h1"></path><path d="m22 22-5-10-5 10"></path><path d="M14 18h6"></path></svg>
+							</div> -->
+                      <div
+                        class="library_back inline-flex cursor-pointer items-center justify-center font-bold !leading-none text-center whitespace-nowrap rounded-full transition-colors duration-200 outline-none h-8 px-4 text-sm tracking-extra-tight px-4.5 whitespace-nowrap border font-semibold border-gray-new-70 hover:border-gray-new-50 dark:border-gray-new-30 dark:hover:border-gray-new-40"
+                        @click="libraryBack"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="lucide lucide-arrow-left w-5 h-5"
+                        >
+                          <path d="m12 19-7-7 7-7"></path>
+                          <path d="M19 12H5"></path>
+                        </svg>
+                        {{isEn?'BACK':'返回'}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="library_box">
+                    <!-- 提示词 -->
+                    <div class="item" style="border: 0; padding: 24px 0 0 0">
+                      <div class="item_b">
+                        <div class="title">
+                          {{isEn?detailInfo.Title_EN:detailInfo.Title_CN}}
+                        </div>
+                        <div class="text">
+                          <div class="text_icon">💡</div>
+                          <div>
+                            <div
+                              v-html="isEn?detailInfo.ValueProposition_EN:detailInfo.ValueProposition_CN"
+                            ></div>
+                            <div
+                              class="browse"
+                              v-if="Number(detailInfo.ViewsNum)>0"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="lucide lucide-eye w-4 h-4"
+                              >
+                                <path
+                                  d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
+                                ></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                              </svg>
+                              {{detailInfo.ViewsNum}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- 提示词作用 -->
+                    <div class="item">
+                      <div class="item_b">
+                        <div class="level_t">
+                          <img
+                            class="settings"
+                            src="https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/academy/library/shezhi.svg"
+                            alt=""
+                          />
+                          {{ isEn?'What This Prompt Does:':'此提示词的功能:' }}
+                        </div>
+                        <div class="level_text">
+                          <div
+                            class="level_text_cn"
+                            v-html="isEn?detailInfo.FunctionalityDescription_EN_HTML:detailInfo.FunctionalityDescription_CN_HTML"
+                          ></div>
+                        </div>
+                        <div class="level_t mt-1">
+                          <img
+                            class="settings"
+                            src="https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/academy/library/deng.svg"
+                            alt=""
+                          />
+                          {{ isEn?'Tips:':'使用技巧:'}}
+                        </div>
+                        <div class="level_text">
+                          <div
+                            class="level_text_cn"
+                            v-html="isEn?detailInfo.TipsContent_EN_HTML:detailInfo.TipsContent_CN_HTML"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tishici">
+                      <div
+                        class="relative w-full overflow-hidden rounded-lg bg-[#09090B] bg-template-cta"
+                        style="padding: 24px"
+                      >
+                        <div
+                          class="relative z-10 flex gap-6 sm:flex-col sm:items-center items-center justify-between"
+                        >
+                          <div class="item_b" style="width: 100%">
+                            <div class="level_t level_copy">
+                              <div>
+                                <div>🔍</div>
+                                {{isEn?'AI Prompt:':'AI 提示词:'}}
+                              </div>
+                              <div
+                                v-if="isVip||(!isVip&&isSelect!=2)"
+                                class="btn_copy inline-flex cursor-pointer items-center justify-center font-bold !leading-none text-center whitespace-nowrap rounded-full transition-colors duration-200 outline-none h-8 px-4 text-sm tracking-extra-tight bg-primary-1 text-black hover:bg-[#00e5bf] px-4.5 whitespace-nowrap font-semibold"
+                                :class="{ active: copied }"
+                                @click="copyText(isEn?detailInfo.PromptText_EN_HTML:detailInfo.PromptText_CN_HTML)"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  class="lucide lucide-copy w-4 h-4"
+                                >
+                                  <rect
+                                    width="14"
+                                    height="14"
+                                    x="8"
+                                    y="8"
+                                    rx="2"
+                                    ry="2"
+                                  ></rect>
+                                  <path
+                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                                  ></path>
+                                </svg>
+                                {{ copied ? (isEn ? 'Copied' : '已复制') : (isEn
+                                ? 'Copy' : '复制') }}
+                              </div>
+                            </div>
+                            <div class="level_box">
+                              <div class="level_bg" v-if="!isVip&&isSelect==2">
+                                <div class="level_payment">
+                                  <svg
+                                    t="1769590231171"
+                                    class="icon"
+                                    viewBox="0 0 1024 1024"
+                                    version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    p-id="5239"
+                                    width="128"
+                                    height="128"
+                                  >
+                                    <path
+                                      d="M842.666667 384h-74.666667V277.333333a234.666667 234.666667 0 1 0-469.333333 0v106.666667H224a53.393333 53.393333 0 0 0-53.333333 53.333333v490.666667a53.393333 53.393333 0 0 0 53.333333 53.333333h618.666667a53.393333 53.393333 0 0 0 53.333333-53.333333V437.333333a53.393333 53.393333 0 0 0-53.333333-53.333333zM341.333333 277.333333c0-105.866667 86.133333-192 192-192s192 86.133333 192 192v106.666667H341.333333z m512 650.666667a10.666667 10.666667 0 0 1-10.666666 10.666667H224a10.666667 10.666667 0 0 1-10.666667-10.666667V437.333333a10.666667 10.666667 0 0 1 10.666667-10.666666h618.666667a10.666667 10.666667 0 0 1 10.666666 10.666666zM533.333333 554.666667a64 64 0 0 0-21.333333 124.34V789.333333a21.333333 21.333333 0 0 0 42.666667 0v-110.326666A64 64 0 0 0 533.333333 554.666667z m0 85.333333a21.333333 21.333333 0 1 1 21.333334-21.333333 21.333333 21.333333 0 0 1-21.333334 21.333333z"
+                                      fill="#ffffff"
+                                      p-id="5240"
+                                    ></path>
+                                  </svg>
+                                  GET FULL ACCESS
+                                </div>
+                              </div>
+                              <div
+                                v-html="isEn?detailInfo.PromptText_EN_HTML:detailInfo.PromptText_CN_HTML"
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]"
+                          aria-hidden="true"
+                        >
+                          <div
+                            class="absolute inset-px rounded-[inherit] bg-[url('/images/bg-pattern.png')] bg-[6px,3.45px]"
+                          ></div>
+                          <div
+                            class="absolute inset-0 rounded-[inherit] border border-white mix-blend-overlay"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- 如何使用提示 -->
+                    <div class="item">
+                      <div class="item_b">
+                        <div class="level_t">
+                          <img
+                            class="settings"
+                            src="https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/academy/library/wenhao.svg"
+                            alt=""
+                          />
+                          {{isEn?'How To Use The Prompt:':'提示词使用方法:'}}
+                        </div>
+                        <div class="level_box">
+                          <div
+                            v-html="isEn?detailInfo.UsageInstructions_EN_HTML:detailInfo.UsageInstructions_CN_HTML"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- 附加信息 -->
+                    <div class="item">
+                      <div class="item_b">
+                        <div class="level_t">
+                          <div class="info_icon">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              class="icon icon-tabler icons-tabler-filled icon-tabler-info-hexagon"
+                            >
+                              <path
+                                stroke="none"
+                                d="M0 0h24v24H0z"
+                                fill="none"
+                              />
+                              <path
+                                d="M10.425 1.414a3.33 3.33 0 0 1 3.026 -.097l.19 .097l6.775 3.995l.096 .063l.092 .077l.107 .075a3.224 3.224 0 0 1 1.266 2.188l.018 .202l.005 .204v7.284c0 1.106 -.57 2.129 -1.454 2.693l-.17 .1l-6.803 4.302c-.918 .504 -2.019 .535 -3.004 .068l-.196 -.1l-6.695 -4.237a3.225 3.225 0 0 1 -1.671 -2.619l-.007 -.207v-7.285c0 -1.106 .57 -2.128 1.476 -2.705l6.95 -4.098zm1.575 9.586h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z"
+                              />
+                            </svg>
+                          </div>
+                          {{ isEn?'Additional Information:':'附加信息:' }}
+                        </div>
+                        <div class="level_text">
+                          <div
+                            class="level_text_cn"
+                            v-html="isEn?detailInfo.AdditionalInfo_EN_HTML:detailInfo.AdditionalInfo_CN_HTML"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- 推荐信息 -->
+                    <div class="item">
+                      <div class="item_b">
+                        <div class="level_t">
+                          <div>🔗</div>
+                          {{ isEn?'Related Prompts:':'相关推荐:' }}
+                        </div>
+                        <div class="recommend">
+                          <div
+                            class="swiper_item"
+                            v-for="(item, index) in libraryDataSorted"
+                            :key="index"
+                            @click="goSubDetail(item.PromptID)"
+                          >
+                            <div
+                              class="group relative block size-full rounded-lg bg-[#020203]"
+                            >
+                              <div class="relative z-10">
+                                <div class="swiper_item_b">
+                                  <div class="swiper_title">
+                                    <img
+                                      style="
+                                        width: 18px;
+                                        height: 18px;
+                                        margin-bottom: 5px;
+                                      "
+                                      src="https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/aiprompts/%E9%97%AA%E7%94%B5.svg"
+                                      alt=""
+                                    />
+                                    {{isEn?item.Title_EN:item.Title_CN}}
+                                  </div>
+                                  <div class="swiper_text">
+                                    <div
+                                      v-html="isEn?item.ValueProposition_EN:item.ValueProposition_CN"
+                                    ></div>
+                                  </div>
+                                  <div
+                                    class="swiper_browse"
+                                    v-if="Number(item.ViewsNum)>0"
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      class="lucide lucide-eye w-4 h-4"
+                                    >
+                                      <path
+                                        d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
+                                      ></path>
+                                      <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    {{item.ViewsNum}}
+                                  </div>
+                                </div>
+                              </div>
+
+                              <span
+                                class="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                                ><span
+                                  class="absolute -left-4 -top-20 h-[235px] w-[165%] rounded-full bg-[#166B70] opacity-20 blur-3xl"
+                                ></span
+                                ><span
+                                  class="absolute -right-3 -top-40 h-[250px] w-[60%] rotate-45 rounded-full bg-[#48C2CB] opacity-30 blur-3xl"
+                                ></span></span
+                              ><span
+                                class="pointer-events-none absolute inset-0 rounded-[inherit] border border-white opacity-0 mix-blend-overlay transition-opacity duration-300 group-hover:opacity-100"
+                              ></span
+                              ><span
+                                class="pointer-events-none absolute inset-0 rounded-[inherit] border border-gray-new-20 transition-opacity duration-300 group-hover:opacity-0"
+                              ></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script src="../js/jquery-3.3.1.min.js" charset="UTF-8"></script>
+<script src="./js/header.js"></script>
+<script src="./js/cookies.js"></script>
+<script src="./js/config.js"></script>
+
+<script>
+  $($(".left_navbar .nav_li")[0])
+    .addClass("active")
+    .siblings()
+    .removeClass("active");
+  $($(".top_navbar .nav_li")[0])
+    .addClass("active")
+    .siblings()
+    .removeClass("active");
+  $(".left_navbar .active img").attr(
+    "src",
+    "./static/b26.svg",
+  );
+  $(".top_navbar .active img").attr(
+    "src",
+    "./static/b26.svg",
+  );
+
+  var aiEmail = getCookie("aiEmail");
+  var typeid = GetQueryString("typeid");
+  var did = GetQueryString("did");
+
+  var client;
+  var ossDispose;
+
+  $.ajax({
+    async: true, // 改为异步，避免阻塞
+    type: "post",
+    url: "https://form.hrflag.com/webapi/Form/GetOssDispose",
+    dataType: "json",
+    success: function (data) {
+      ossDispose = data;
+      client = new OSS.Wrapper({
+        secure: true,
+        region: ossDispose.region,
+        accessKeyId: ossDispose.accessKeyId,
+        accessKeySecret: ossDispose.accessKeySecret,
+        bucket: ossDispose.bucket,
+      });
+    },
+    error: function () {
+      console.error("无法初始化OSS客户端，上传功能将不可用。");
+    },
+  });
+
+  var app = new Vue({
+    el: "#vue_app",
+    data: {
+      libraryData: [], // 数据
+      isEn: true, // 是否英文版
+      copied: false,
+      copyTimer: null,
+      detailInfo: {},
+      iconData: [
+        {
+          url: "https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/ai/chatgpt.svg",
+          link: "https://chatgpt.com/",
+        },
+        {
+          url: "https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/UploadImage/weike/软件logo_202408121929147055.svg",
+          link: "https://gemini.google.com/",
+        },
+        {
+          url: "https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/ai/grok.svg",
+          link: "https://grok.com/",
+        },
+        {
+          url: "https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/ai/claude.png",
+          link: "https://claude.ai",
+        },
+        {
+          url: "https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/ai/deepseek.svg",
+          link: "https://chat.deepseek.com",
+        },
+        {
+          url: "https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/ai/kimi.png",
+          link: "https://kimi.ai",
+        },
+        {
+          url: "https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/ai/%E6%99%BA%E8%B0%B1.png",
+          link: "https://chatglm.cn",
+        },
+        {
+          url: "https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/ai/doubao.png",
+          link: "https://www.doubao.com",
+        },
+        {
+          url: "https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/ai/%E9%80%9A%E4%B9%89%E5%8D%83%E9%97%AE.png",
+          link: "https://www.qianwen.com/",
+        },
+      ],
+      feedback: {
+        modalVisible: false,
+        description: "",
+        imageFile: null, // 存储原始File对象
+        imageUrl: "", // 用于本地预览
+        isSubmitting: false,
+      },
+      isVip: false,
+      isSelect: GetQueryString("isSelect"),
+    },
+    computed: {
+      libraryDataSorted() {
+        const filtered = [...this.libraryData].filter(
+          (item) => item.PromptID != did,
+        );
+        return filtered.slice(0, 8);
+      },
+    },
+    mounted() {
+      let that = this;
+      $.ajax({
+        async: true,
+        type: "POST",
+        url: "http://3.238.5.209:8888/api/auth/IsGoogleUser",
+        dataType: "json",
+        data: {
+          Email: aiEmail,
+        },
+        success: function (data) {
+          if (data == 1) {
+            that.isVip = true;
+          }
+          that.getListData();
+          that.getDetail();
+          that.AddPromptLog(1);
+        },
+      });
+    },
+    methods: {
+      //返回上一页
+      libraryBack() {
+        location.href = `./promptlibrarylist.html?id=${typeid}`;
+      },
+
+      //切换语言
+      cutLanguage() {
+        this.isEn = !this.isEn;
+      },
+
+      //复制
+      copyText(htmlText) {
+        let text = htmlText
+          .replace(/<br\s*\/?>/gi, "\n")
+          .replace(/<\/p>/gi, "\n")
+          .replace(/<\/div>/gi, "\n")
+          .replace(/<p[^>]*>/gi, "")
+          .replace(/<div[^>]*>/gi, "")
+          .replace(/&nbsp;/gi, " ")
+          .replace(/&[#0-9a-z]+;/gi, "") // 删除 HTML 实体（防止 &#35; 之类）
+          .replace(/\$#/g, "") // 删除占位符
+          .replace(/<[^>]+>/g, "") // 删除所有标签
+          .trim();
+
+        if (this.copied) return;
+        this.copied = true;
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text);
+        } else {
+          // 兼容写法
+          const textarea = document.createElement("textarea");
+          textarea.value = text;
+          textarea.style.position = "fixed";
+          textarea.style.opacity = "0";
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textarea);
+        }
+        this.AddPromptLog(2);
+        if (this.copyTimer) clearTimeout(this.copyTimer);
+        this.copyTimer = setTimeout(() => {
+          this.copied = false;
+        }, 1500);
+      },
+
+      // 跳转详情页面
+      goSubDetail(did) {
+        location.href = `./promptlibraryDetail.html?typeid=${typeid}&did=${did}&isSelect=1`;
+      },
+
+      // 获取详情信息
+      getDetail() {
+        let that = this;
+        $.ajax({
+          async: true,
+          type: "POST",
+          url: `http://3.238.5.209:8888/api/auth/GetPromptDetailsById?promptId=${did}`,
+          dataType: "json",
+          success: function (data) {
+            if (data.dataInfo) {
+              that.detailInfo = data.dataInfo;
+            }
+            setTimeout(function () {
+              $(".pageloader").hide();
+            }, 1500);
+          },
+        });
+      },
+
+      // 记录接口
+      AddPromptLog(type) {
+        // 1.浏览 2.复制
+        $.ajax({
+          async: true,
+          type: "POST",
+          url: `http://3.238.5.209:8888/api/auth/AddPromptLog?Email=${aiEmail}&LogType=${type}&PromptId=${did}&Source=众旗学院`,
+          dataType: "json",
+          success: function (data) {},
+        });
+      },
+
+      // 获取推荐列表
+      getListData() {
+        let that = this;
+        let url = `http://3.238.5.209:8888/api/auth/GetTopHotPromptsByIndustry?categoryId=${typeid}`;
+        $.ajax({
+          async: false,
+          type: "POST",
+          url: url,
+          dataType: "json",
+          success: function (data) {
+            that.libraryData = data.data;
+          },
+        });
+      },
+
+      // --- 新增：反馈功能相关方法 ---
+
+      openFeedbackModal() {
+        this.feedback.modalVisible = true;
+      },
+
+      closeFeedbackModal() {
+        this.feedback.modalVisible = false;
+        // 重置表单
+        this.feedback.description = "";
+        this.removeSelectedImage();
+      },
+
+      handleFileSelect(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        // 验证文件
+        const isAllowedType = [
+          "image/jpg",
+          "image/jpeg",
+          "image/png",
+          "image/webp",
+          "image/gif",
+        ].includes(file.type);
+        if (!isAllowedType) {
+          this.$message.error(
+            "Invalid file format. Supported formats: JPG, PNG, WEBP, GIF",
+          );
+          return;
+        }
+        const isLt10M = file.size / 1024 / 1024 < 10;
+        if (!isLt10M) {
+          this.$message.error("File size must not exceed 10MB");
+          return;
+        }
+        const forbiddenChars = /[+\#$%^&*\[\]{}|<>?~`!]/;
+        if (forbiddenChars.test(file.name)) {
+          this.$message.error(
+            "File names cannot contain special characters (e.g. +, #, $, %, ^, &, )",
+          );
+          return;
+        }
+
+        this.feedback.imageFile = file;
+        this.feedback.imageUrl = URL.createObjectURL(file); // 创建本地预览URL
+        event.target.value = ""; // 清空input，以便可以再次选择相同文件
+      },
+
+      removeSelectedImage() {
+        this.feedback.imageFile = null;
+        if (this.feedback.imageUrl.startsWith("blob:")) {
+          URL.revokeObjectURL(this.feedback.imageUrl); // 释放内存
+        }
+        this.feedback.imageUrl = "";
+      },
+
+      async submitFeedback() {
+        if (this.feedback.description.trim() === "") {
+          this.$message.warning("Please describe your issue or suggestion");
+          return;
+        }
+        if (this.feedback.isSubmitting) return;
+
+        this.feedback.isSubmitting = true;
+        let uploadedImageUrl = "";
+
+        // 步骤1: 如果有图片，上传到OSS
+        if (this.feedback.imageFile) {
+          if (!client) {
+            this.$message.error(
+              "Upload service initialization failed. Please try again later",
+            );
+            this.feedback.isSubmitting = false;
+            return;
+          }
+          const file = this.feedback.imageFile;
+          const name = file.name;
+          const dotIndex = name.lastIndexOf(".");
+          const baseName = name.substring(0, dotIndex);
+          const ext = name.substring(dotIndex);
+          const fileName = `Web/PromptFeedback/${baseName}_${Date.now()}${ext}`;
+
+          try {
+            await client.multipartUpload(fileName, file);
+            uploadedImageUrl = `https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/${fileName}`;
+          } catch (err) {
+            console.error("上传失败", name, err);
+            this.$message.error("Failed to upload the image. Please try again");
+            this.feedback.isSubmitting = false;
+            return;
+          }
+        }
+
+        // 步骤2: 提交反馈数据到后端
+        let params = {
+          UserEmail: aiEmail,
+          PromptID: did,
+          Description: this.feedback.description,
+          ImageURLs: uploadedImageUrl,
+        };
+
+        // !!! 注意：请将下面的URL替换为您的“提交反馈”接口 !!!
+        $.ajax({
+          type: "post",
+          url: `http://3.238.5.209:8888/api/auth/AddPromptFeedback`,
+          dataType: "json",
+          data: params,
+          success: (res) => {
+            if (res) {
+              // 假设接口返回 { isSuccess: true }
+              this.$message.success(
+                "Your feedback has been submitted. Thank you!",
+              );
+              this.closeFeedbackModal();
+            } else {
+              this.$message.error(
+                res.message || "Failed to submit. Please try again later",
+              );
+            }
+          },
+          error: () => {
+            this.$message.error(
+              "Failed to connect to the server. Please check your network",
+            );
+          },
+          complete: () => {
+            this.feedback.isSubmitting = false;
+          },
+        });
+      },
+    },
+  });
+</script>

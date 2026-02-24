@@ -1,0 +1,32 @@
+.navbar-expand-lg.navbar-vertical {
+	box-shadow: none!important;
+}
+
+.border-gray-new-15 {
+    --tw-border-opacity: 1;
+    border-color: rgb(36 38 40 / var(--tw-border-opacity)) !important;
+}
+
+.border-white {
+    --tw-border-opacity: 1;
+    border-color: rgb(255 255 255 / var(--tw-border-opacity))!important;
+}
+
+.border-gray-new-20 {
+    --tw-border-opacity: 1;
+    border-color: rgb(48 50 54 / var(--tw-border-opacity))!important;
+}
+
+.border-\[\#1B2C2E\] {
+    --tw-border-opacity: 1;
+    border-color: rgb(27 44 46 / var(--tw-border-opacity))!important;
+}
+
+.border-gray-new-70 {
+    --tw-border-opacity: 1;
+    border-color: rgb(175 177 182 / var(--tw-border-opacity))!important;
+}
+
+body {
+	font-family: "微软雅黑", "Microsoft YaHei", "Arial", sans-serif;
+}

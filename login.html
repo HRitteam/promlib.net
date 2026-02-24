@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Log In_Expert-Level AI Prompt Library</title>
+    <!-- CSS files -->
+    <link
+      href="./personal/dist/css/tabler.min.css?1692870487"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/login.css" />
+    <link rel="stylesheet" type="text/css" href="./css/neon.css" />
+    <!-- 1. 引入 Google 身份服务 -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+      :root {
+        --tblr-font-sans-serif:
+          "Inter Var", -apple-system, BlinkMacSystemFont, San Francisco,
+          Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+      body {
+        font-feature-settings: "cv03", "cv04", "cv11";
+      }
+
+      .pageloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999999;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .container-tight {
+        max-width: 100%;
+        justify-content: center;
+        margin-top: 0px !important;
+      }
+
+      .loginleft {
+        border-radius: 4px 0 0 4px;
+        width: 50%;
+      }
+
+      .card-title {
+        color: #fff;
+        font-weight: bold;
+        font-size: 26px;
+        font-family: "黑体", "Heiti SC", "STHeiti", sans-serif;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      .showphone {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-direction: column;
+        height: 82%;
+      }
+
+      .showphone > div {
+        width: 100%;
+      }
+
+      .form-footer {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 0;
+      }
+
+      .remarkable_box {
+        box-shadow:
+          3px 2px 7px 0 #0000001a,
+          10px 8px 13px 0 #00000014,
+          23px 19px 18px 0 #0000000d;
+        display: flex;
+        position: relative;
+      }
+
+      /* 隐藏所有控制元素 */
+      video::-webkit-media-controls {
+        display: none !important;
+      }
+
+      video::-webkit-media-controls-enclosure {
+        display: none !important;
+      }
+
+      .codelogin {
+        display: none;
+      }
+
+      .mshow_mt {
+        margin-top: 1rem;
+        font-size: 14px;
+      }
+
+      .login_box {
+        margin: 0;
+        display: block;
+      }
+
+      .login_box .col {
+        width: 100%;
+        padding: 0;
+      }
+
+      .newmsg {
+        display: none;
+        width: 100%;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+        margin: 5px 0 10px;
+      }
+      .newmsg {
+        margin: 5px 0;
+      }
+
+      .Back {
+        background: #222;
+        border: 1px solid #575757;
+        position: absolute;
+        color: #dedede !important;
+        display: flex;
+        gap: 6px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 6px;
+        top: 40px;
+        right: 40px;
+        padding: 10px 16px;
+        cursor: pointer;
+        z-index: 21;
+      }
+
+      .Back:hover {
+        text-decoration: none;
+        background: #3b3b3b;
+      }
+
+      .pt-8 {
+        padding-top: 5rem !important;
+      }
+      .pb-8 {
+        padding-bottom: 5rem !important;
+      }
+
+      .login_btn {
+        width: 100%;
+        height: 100%;
+        background: #00e599;
+        border-radius: 40px;
+        padding: 4px 32px;
+        color: #fff;
+        font-size: 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .login_btn:hover {
+        background: #00c48c;
+      }
+
+      .login_btn svg {
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+      }
+
+      .modal-content,
+      .modal-footer {
+        background: #222;
+      }
+
+      .modal-footer {
+        border-top: 1px solid #333;
+      }
+
+      #google_button_proxy{
+        margin-top: 4px;
+      }
+
+      @media (max-width: 768px) {
+        .remarkable_box {
+          width: 100%;
+        }
+        .navlogo img {
+          margin-left: 40% !important;
+        }
+        .loginleft {
+          display: none;
+        }
+        .showphone {
+          height: auto;
+        }
+        .mt-6 {
+          margin-top: 0 !important;
+        }
+        .code_box {
+          width: 100%;
+        }
+
+        .Back {
+          top: 20px;
+          right: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="pageloader">
+      <div class="container container-slim py-4">
+        <div class="text-center">
+          <div class="text-white mb-3">Loading…</div>
+          <div class="progress progress-sm">
+            <div class="progress-bar progress-bar-indeterminate"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 配置初始化 -->
+    <div
+      id="g_id_onload"
+      data-client_id="508891237674-e34sjkljehjb46s3jvm6df3tkls8laje.apps.googleusercontent.com"
+      data-callback="handleCredentialResponse"
+      data-auto_prompt="false"
+    ></div>
+
+    <div
+      class="page page-center"
+      style="
+        background: url(https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/aiprompts/TSCbg.jpg)
+          no-repeat center center;
+        background-size: cover;
+        margin: 0;
+        padding-bottom: 20px;
+      "
+    >
+      <div class="container container-tight d-flex flex-wrap position-relative">
+        <a class="Back" href="./index.html">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16px"
+            height="16px"
+            fill="none"
+            viewBox="0 0 18 18"
+            role="img"
+            aria-hidden="true"
+          >
+            <path
+              fill="currentColor"
+              fill-rule="evenodd"
+              d="M8.57 3.37 3.68 8.25h13.55v1.2H3.68l4.89 4.89-.85.84-6.33-6.33 6.33-6.33z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          HOME
+        </a>
+
+        <div style="width: 100%" class="d-flex justify-content-center">
+          <h2
+            class="relative z-20 inline-block bg-home-lightning-title bg-clip-text pb-8 pt-8 font-title text-[60px] font-medium leading-dense text-transparent [mask-image:radial-gradient(0px_80px_at_77.8%_86%,transparent_50%,transparent_94%,black_90%)] xl:max-w-2xl xl:bg-home-lightning-title-xl xl:text-[96px] lg:max-w-lg lg:bg-home-lightning-title-lg lg:text-[72px] md:max-w-md md:bg-home-lightning-title-md md:text-[56px] md:[mask-image:radial-gradient(40px_60px_at_78.1%_82%,transparent_100%,black)] sm:bg-home-lightning-title-sm sm:text-[36px] sm:[mask-image:radial-gradient(49px_55px_at_93.6%_73%,transparent_97%,black)]"
+          >
+            <span
+              style="
+                font-family:
+                  &quot;微软雅黑&quot;, &quot;Microsoft YaHei&quot;,
+                  &quot;Arial&quot;, sans-serif;
+              "
+              class="bg-[linear-gradient(73deg,#7F95EB_1%,#89E0EA_33%,#EFEFEF_81%)] bg-clip-text text-[62px] font-semibold leading-none tracking-tighter text-transparent lg:text-4xl"
+              >40,000</span
+            >
+            <sup class="text-6xl md:text-[40px]" style="color: #fff">+</sup
+            >Full-Function AI Prompts for Enterprises <br />
+            Expert-Level Prompt Library
+          </h2>
+        </div>
+
+        <div class="remarkable_box">
+          <video class="loginleft" muted="" autoplay="" loop="">
+            <source
+              src="https://v.hrflag.com/customerTrans/3d895f7d2383fa28ad58ff9a41379316/5bd4ee4-19c310f0c14-0005-d66b-18f-e07aa.mp4"
+              type="video/mp4"
+            />
+          </video>
+          <!-- 修改 class：relative overflow-hidden bg-[#0D0E10] border-gray-new-10 -->
+          <form
+            class="card relative z-10 w-full overflow-hidden rounded-xl border border-gray-new-10 bg-[#0D0E10] shadow-contact"
+            style="border-radius: 0; padding: 20px"
+          >
+            <!-- ★★★ 新增：背景装饰层 (Neon 光晕效果) ★★★ -->
+            <div
+              class="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]"
+              aria-hidden="true"
+            >
+              <!-- 右上角光晕 -->
+              <img
+                alt=""
+                loading="lazy"
+                width="617"
+                height="776"
+                decoding="async"
+                class="absolute right-0 top-0 h-[776px] w-[617px]"
+                style="color: transparent; opacity: 0.6"
+                src="https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/aiprompts/icon/bg-r.avif"
+              />
+              <!-- 左下角光晕 -->
+              <img
+                alt=""
+                loading="lazy"
+                width="389"
+                height="339"
+                decoding="async"
+                class="absolute bottom-0 left-0 h-[339px] w-[389px]"
+                style="color: transparent; opacity: 0.6"
+                src="https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/aiprompts/icon/bg-l.avif"
+              />
+              <!-- 边框叠加效果 -->
+              <div
+                class="absolute inset-0 rounded-[inherit] border border-white mix-blend-overlay opacity-10"
+              ></div>
+            </div>
+
+            <!-- 内容层 (relative z-10 确保在背景之上) -->
+            <div class="card-body p-0 relative z-10">
+              <h2 class="card-title mb-4 mt-4" style="color: #fff">Log In</h2>
+              <div class="showphone">
+                <div></div>
+                <div class="phonelogin" style="width: 100%">
+                  <div class="form-footer">
+                    <div style="position: relative; width: 100%; height: 50px;">
+                      <!-- 1. 底层：你的漂亮绿色按钮 -->
+                      <div class="login_btn">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="LgbsSe-Bz112c"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg>
+                        Sign in with Google
+                        <span></span>
+                      </div>
+                      
+                      <!-- 2. 顶层：透明的谷歌原生按钮 -->
+                      <div id="google_button_proxy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; opacity: 0.01; overflow: hidden;"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mshow_mt">
+                  <div style="color: #9ca3af">
+                    No longer fragmented prompts, but a digital crystallization
+                    of real-world practices from the world’s leading
+                    enterprises. Covering HR, finance, engineering, sales, and
+                    other <b style="color: #fff">end-to-end functions</b>, one
+                    unified command system works seamlessly across DeepSeek,
+                    ChatGPT, Gemini, Doubao, Qwen, Lingguang, and Kimi.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="alert_warning">
+        <div class="alert alert-warning" role="alert">
+          <div class="d-flex">
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon alert-icon"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M10.24 3.957l-8.422 14.06a1.989 1.989 0 0 0 1.7 2.983h16.845a1.989 1.989 0 0 0 1.7 -2.983l-8.423 -14.06a1.989 1.989 0 0 0 -3.4 0z"
+                />
+                <path d="M12 9v4" />
+                <path d="M12 17h.01" />
+              </svg>
+            </div>
+            <div class="alert_warning_text"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 账号过期提示 -->
+    <div
+      class="modal modal-blur fade"
+      id="modal-danger"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+          <div class="modal-status bg-danger"></div>
+          <div class="modal-body text-center py-4">
+            <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon mb-2 text-danger icon-lg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M10.24 3.957l-8.422 14.06a1.989 1.989 0 0 0 1.7 2.983h16.845a1.989 1.989 0 0 0 1.7 -2.983l-8.423 -14.06a1.989 1.989 0 0 0 -3.4 0z"
+              />
+              <path d="M12 9v4" />
+              <path d="M12 17h.01" />
+            </svg>
+            <div class="text-secondary">Login failed. Please try again</div>
+          </div>
+          <div class="modal-footer">
+            <div class="w-100">
+              <div class="row">
+                <div class="col">
+                  <a href="#" class="btn w-100" data-bs-dismiss="modal">
+                    CLOSE
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JS files -->
+    <script charset="UTF-8" src="./js/jquery-3.3.1.min.js"></script>
+    <script
+      src="./js/cookies.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    <script src="./personal/dist/js/tabler.min.js" defer></script>
+
+    <script>
+      function handleCredentialResponse(res) {
+        console.log("Google ID Token:", JSON.stringify(res));
+        $(".pageloader").attr("style", "display: flex;");
+        $.ajax({
+          async: true,
+          type: "POST",
+          url: `http://3.238.5.209:8888/api/auth/GoogleToken`,
+          data: {
+            IdToken: res.credential,
+          },
+          dataType: "json",
+          success: function (data) {
+            if (data.email) {
+              setCookie("aiEmail", data.email);
+              setCookie("aiName", data.name);
+              setCookie("aiPicture", data.picture);
+              setCookie("token", data.Time);
+              location.href = "./personal/promptlibrary.html";
+            } else {
+              $("#modal-danger").modal("show");
+            }
+            $(".pageloader").hide();
+          },
+        });
+      }
+
+      google.accounts.id.initialize({
+        client_id: "508891237674-e34sjkljehjb46s3jvm6df3tkls8laje.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+      });
+
+      // 获取父容器的实际宽度，确保 iframe 撑满
+      const parentWidth = document.getElementById('google_button_proxy').offsetWidth;
+
+      google.accounts.id.renderButton(
+        document.getElementById("google_button_proxy"), 
+        { 
+          type: "standard", 
+          shape: "rectangular", 
+          theme: "outline", 
+          size: "large", 
+          width: parentWidth,
+          height: 50,
+          locale: "en" 
+        }
+      );
+      
+    </script>
+  </body>
+</html>

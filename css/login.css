@@ -1,0 +1,234 @@
+.account {
+	display: none;
+}
+
+.panel {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9;
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+
+.panel .alert_warning {
+	position: absolute;
+	top: 20%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 446px;
+}
+
+.alert-warning {
+	background-color: #fff;
+}
+
+
+.col .btn-danger {
+	color: #fff;
+}
+
+.logincode {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	cursor: pointer;
+	overflow: hidden;
+	width: 80px;
+	height: 80px;
+}
+
+.sector {
+	width: 0;
+	border-bottom: 60px solid #0054A6;
+	border-left: 60px solid transparent;
+	border-right: 60px solid transparent;
+	border-radius: 50%;
+	transform: rotate(45deg);
+	position: absolute;
+	top: -9px;
+	right: -39px;
+}
+
+.logincode img {
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 99;
+	transition: transform .3s ease;
+}
+
+.showphone {
+	display: block;
+}
+
+.showcode {
+	display: none;
+}
+
+.loginimg {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.loginimg img {
+	width: 190px;
+	height: 190px;
+	margin-bottom: 13px;
+}
+
+.page-center {
+	position: relative;
+}
+
+.remarkable_box {
+	width: 900px;
+	background: #000;
+	transition: transform .6s, opacity .6s;
+	transition-delay: .5s;
+	box-shadow: 0 0 40px 4px #111118;
+	flex-shrink: 0;
+}
+
+
+.bg1 {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	max-width: 1200px;
+	width: 100%;
+}
+
+.card {
+	width: 50%;
+	background-color: #000;
+	padding: 16px 20px;
+}
+
+.form-label {
+	color: #Fff;
+	font-size: 14px;
+}
+
+.form-control {
+	padding: 8px 16px;
+	height: 56px;
+	background-color: transparent;
+	--tw-border-opacity: 1;
+	border-color: rgb(36 38 40 / var(--tw-border-opacity));
+	border-radius: 0;
+	color: #Fff;
+}
+
+.form-control:focus {
+	background-color: transparent;
+	--tw-border-opacity: 1;
+	border-color: rgb(0 229 153 / var(--tw-border-opacity));
+	color: #fff;
+	box-shadow: none;
+}
+
+.getCode,
+:not(.btn-check)+.btn:active {
+	background: transparent;
+	--tw-border-opacity: 1;
+	border-color: rgb(73 75 80 / var(--tw-border-opacity));
+}
+
+.getCode:hover {
+	--tw-border-opacity: 1;
+	border-color: rgb(97 100 107 / var(--tw-border-opacity));
+	background: transparent;
+}
+
+.login {
+	background-color: #185469;
+	width: 100%;
+	font-weight: bold;
+	font-size: 18px;
+	height: 60px;
+	font-family: "黑体", "Heiti SC", "STHeiti", sans-serif;
+}
+
+.login:hover,
+.btn:first-child:active {
+	background-color: #113c4c;
+}
+
+.toggleLogin {
+	height: 60px;
+	background: #000;
+	border: 1px solid rgba(0, 229, 153, .7);
+	color: rgb(0, 229, 153);
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.toggleLogin svg {
+	position: absolute;
+	left: 16px;
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+}
+
+
+.btn {
+	border-radius: 0;
+}
+
+.hr-text {
+	color: #888;
+}
+
+.hr-text:after,
+.hr-text:before {
+	background-color: #525252;
+}
+
+.code_box {
+	width: 100%;
+	text-align: center;
+}
+
+
+.login_img_box {
+	width: 240px;
+	height: 240px;
+	border-radius: 50%;
+	overflow: hidden;
+	background-color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
+}
+
+.loginCodeImg {
+	width: 210px;
+	height: 210px;
+	margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+
+	.remarkable_box {
+		z-index: 1;
+	}
+
+	.card {
+		width: 100%;
+		background-color: #191919;
+		padding: 0px;
+	}
+
+}

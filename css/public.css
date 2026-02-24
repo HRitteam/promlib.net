@@ -1,0 +1,359 @@
+/*public*/
+
+#goTop {
+    /*border: 1px solid gray;*/
+    box-shadow: 0 0 5px 0 #ccc;
+    padding: 5px 10px;
+    position: fixed;
+    z-index: 3;
+    bottom: 5%;
+    background-color: #FFFFFF;
+    right: 1%;
+    color: gray;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#goTop:hover {
+    color: #0077CC;
+}
+
+#goTop:hover div span {
+    color: #0077CC;
+}
+
+#goTop div span {
+    font-size: 30px;
+    text-align: center;
+    color: gray;
+    margin-left: 25%;
+}
+
+
+/*pc 导航*/
+
+.headnav {
+    width: 100%;
+    min-width: 1200px;
+    height: 110px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.headnav .safewidth {
+    overflow: visible;
+}
+
+.navone {
+    height: 40px;
+    background: #fff;
+    color: #fff;
+    overflow: hidden;
+}
+
+.navone .toLogin {
+    float: right;
+    display: none;
+}
+
+.toLogin .noLoginbox {
+    display: flex;
+}
+
+.navone .toLogin a {
+    height: 28px;
+    line-height: 28px;
+    font-size: 13px;
+    margin: 6px 0;
+    color: #fff;
+    background: #2d95c8;
+    padding: 0 20px;
+}
+
+#userName {
+	color: #fff;
+}
+
+.navone .toLogin a:nth-child(2) {
+    height: 28px;
+    line-height: 28px;
+    font-size: 13px;
+    margin: 6px 0;
+    margin-right: 10px;
+    color: #003580;
+    background: #2d95c8;
+    padding: 0 20px;
+}
+
+.navone .hasLogin {
+    float: right;
+    height: 40px;
+    line-height: 40px;
+    font-size: 13px;
+    color: #ffffff!important;
+    background: #2d95c8;
+    padding: 0 15px;
+    display: none;
+}
+
+.navone ul {
+    float: right;
+    display: flex;
+    align-items: center;
+	margin-right: 16px;
+}
+
+.navone ul li a {
+    color: #60b400;
+    font-size: 13px;
+    padding: 0 15px;
+    height: 40px;
+    line-height: 40px;
+    font-weight: lighter;
+    cursor: pointer;
+	display: block;
+}
+
+.navone ul li a:hover {
+    color: #fff;
+    background: #afd700;
+}
+
+.navtwo {
+    height: 70px;
+    background: #60b400;
+    color: #fff;
+}
+
+.navtwo #onlineStudy {
+    display: none;
+    position: absolute;
+    top: 70px;
+}
+
+.navtwo #onlineStudy li a {
+    height: 50px;
+    line-height: 50px;
+    background: #005a9c;
+    color: #fff;
+    border-bottom: 1px solid gray;
+    padding: 0 10px;
+}
+
+.navtwo .logoArea {
+    position: absolute;
+    /*top: 0;*/
+    top: -25px;
+    left: 0px;
+    /*width: 200px;*/
+    height: 80px;
+    background: #fff;
+    padding: 11px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+	box-shadow: 0 .1875rem .4375rem 0 rgba(0, 0, 0, .13), 0 .0625rem .125rem 0 rgba(0, 0, 0, .11);
+}
+
+.navtwo .logoArea>img {
+    /*width: 80px;*/
+    height: 60px;
+    margin: 0 auto;
+}
+
+.navtwo .logoArea>h3 {
+    font-size: 24px;
+    margin-top: 6px;
+    letter-spacing: 2px;
+}
+
+.navtwo .logoArea>p {
+    font-size: 12px;
+}
+
+.navtwo ul {
+    float: right;
+    display: flex;
+}
+
+.navtwo ul li a {
+    color: #fff;
+    font-weight: lighter;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    padding: 0 15px;
+}
+
+#headerEn .navtwo ul li a {
+    font-size: 12px;
+    padding: 0 10px;
+}
+
+.navtwo ul li a:hover {
+    background: #afd700;
+    border-bottom: 2px solid #afd700;
+}
+
+
+.navtwo ul li:last-child a:hover {
+    background: #afd700;
+}
+
+.active22 {
+    background: #afd700;
+	color: #fff!important;
+}
+
+@media screen and (max-width:768px) {
+	
+	.safewidth2 {
+		min-width: 100%;
+		width: 100%;
+	}
+    /* 移动导航 */
+    .headnav {
+        height: 50px;
+        background: #393939;
+        min-width: 0;
+    }
+    .navlogo {
+        height: 50px;
+    }
+    .navlogo img {
+        height: 100%;
+        padding: 10px 0;
+        width: auto;
+        margin: 0 auto;
+    }
+    .topheadM>div {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        display: flex;
+        height: 30px;
+        line-height: 30px;
+    }
+    .topheadM .toLogin a {
+        width: 60px;
+        font-size: 12px;
+        padding: 1px;
+        text-align: center;
+        color: #fff;
+        margin-right: 10px;
+        background: #60b400;
+        /*display: none;*/
+    }
+    .topheadM .toLogin a:nth-last-child(1) {
+        margin-right: 0;
+    }
+    .topheadM .hasLogin {
+        display: none;
+        width: 80px;
+        text-align: right;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #fff;
+    }
+    .hasLogin>img {
+        width: 20px;
+        float: left;
+        margin-top: 5px;
+    }
+    .hasLogin a {
+        color: #fff;
+    }
+    .cosmenu {
+        width: 0;
+        height: 1000px;
+    }
+    .menubtn {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        width: 35px;
+        height: 22px;
+        z-index: 3;
+        cursor: pointer;
+    }
+    .menubtn span {
+        display: block;
+        width: 30px;
+        height: 2px;
+        background: #fff;
+        margin-bottom: 6px;
+        transition: all 0.5s;
+    }
+    .menubtn .spa1 {
+        transform: rotate(45deg);
+        transition: all 0.5s;
+        position: absolute;
+        top: 10px;
+    }
+    .menubtn .spa2 {
+        display: none;
+        transition: all 0.5s;
+    }
+    .menubtn .spa3 {
+        transform: rotate(-45deg);
+        transition: all 0.5s;
+        position: absolute;
+        top: 11px;
+    }
+    .menu {
+        background: #fff;
+        width: 240px;
+        height: 100%;
+        box-shadow: 0 0 10px 0 #ccc;
+        position: relative;
+        top: 0;
+        left: -260px;
+        transition: all 0.5s;
+    }
+    .toggle {
+        position: fixed;
+        top: 13px;
+        left: 19px;
+        width: 28px;
+        height: 30px;
+        display: none;
+        z-index: 9;
+        cursor: pointer;
+    }
+    .menulogo img {
+        width: 160px;
+        padding: 16px 0 16px 0;
+        margin: 0 0 0 50px;
+    }
+    .ma {
+        background: #f9f9f9;
+        padding: 8px 16%;
+    }
+    .ma a {
+        display: block;
+        font-size: 14px;
+        color: #333;
+        line-height: 1.5;
+        padding: 6px;
+    }
+    .ma a.active {
+        color: #60b400;
+    }
+    .ma a:hover {
+        color: #60b400;
+    }
+	
+	.content {
+		position: absolute;
+		top: 50px;
+		left: 0%;
+		color: #fff;
+		padding: 10px;
+		width: 100%;
+	}
+	
+}

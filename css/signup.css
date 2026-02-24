@@ -1,0 +1,530 @@
+/* ================== 1. 全局配置与重置 ================== */
+:root {
+	--color-bg-dark: #020203;
+	/* 深黑背景 */
+	--color-primary-1: #00e5bf;
+	/* Neon 荧光绿 */
+	--color-border-gray: #2e2e2e;
+	/* 深灰边框 */
+	--color-text-gray: #9ca3af;
+	/* 灰色文字 */
+	--color-white: #ffffff;
+}
+
+body {
+	background-color: #000;
+	color: var(--color-white);
+	font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+	margin: 0;
+	padding: 20px 0;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+}
+
+.form-container {
+	width: 100%;
+	max-width: 950px;
+	padding: 0 10px;
+	box-sizing: border-box;
+	padding-top: 60px;
+}
+
+.bg-black {
+	position: relative;
+}
+
+.bg-black:before {
+	content: "";
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url(https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/aiprompts/TSCbg.jpg);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.old-price {
+  /* 关键属性：line-through 表示贯穿线 */
+  text-decoration: line-through; 
+  
+  /* 可选：通常原价颜色会淡一点 */
+  color: #999; 
+  font-size:17px;
+}
+
+.yj {
+	font-size: 12px;
+	color: #fff;
+	text-align: right;
+}
+
+.Back{
+	    background: #222;
+		border:1px solid #575757;
+		position: absolute;
+		color: #dedede !important;
+		display: flex;
+		gap: 6px;
+		justify-content: center;
+		align-items: center;
+		border-radius: 6px;
+		top: 40px;
+		right: 40px;
+		padding: 10px 16px;
+		cursor: pointer;
+	}
+	
+	.Back:hover {
+	    text-decoration: none;
+		background: #3B3B3B;
+	}
+
+/* ================== 2. 类名补丁 ================== */
+
+/* 布局类 */
+.grid {
+	display: grid;
+}
+
+.flex {
+	display: flex;
+}
+
+.relative {
+	position: relative;
+}
+
+.absolute {
+	position: absolute;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.block {
+	display: block;
+}
+
+.items-center {
+	align-items: center;
+}
+
+.items-start {
+	align-items: flex-start;
+}
+
+.flex-col {
+	flex-direction: column;
+}
+
+.w-full {
+	width: 100%;
+}
+
+.h-full {
+	height: 100%;
+}
+
+.h-10 {
+	height: 2.5rem;
+}
+
+.rounded {
+	border-radius: 0.25rem;
+}
+
+.rounded-xl {
+	border-radius: 0.75rem;
+}
+
+.rounded-l {
+	border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.rounded-full {
+	border-radius: 9999px;
+}
+
+.p-8 {
+	padding: 2rem;
+}
+
+.pb-4 {
+	padding-bottom: 1rem;
+}
+
+.mb-2 {
+	margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+	margin-bottom: 1rem;
+}
+
+.mt-0\.5 {
+	margin-top: 0.125rem;
+}
+
+.mt-1 {
+	margin-top: 0.25rem;
+}
+
+.mt-2 {
+	margin-top: 0.5rem;
+}
+
+.mt-4 {
+	margin-top: 1rem;
+}
+
+.mr-2 {
+	margin-right: 0.5rem;
+}
+
+.mr-3 {
+	margin-right: 0.75rem;
+}
+
+.mx-1 {
+	margin-left: 0.25rem;
+	margin-right: 0.25rem;
+}
+
+.pr-10 {
+	padding-right: 2.5rem;
+}
+
+/* 留出箭头空间 */
+.gap-y-6 {
+	row-gap: 1rem;
+}
+
+.grid-cols-2 {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.gap-6 {
+	gap: 1.5rem;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.z-10 {
+	z-index: 10;
+}
+
+.z-50 {
+	z-index: 50;
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.select-none {
+	user-select: none;
+}
+
+.shrink-0 {
+	flex-shrink: 0;
+}
+
+.opacity-50 {
+	opacity: 0.5;
+}
+
+.pointer-events-none {
+	pointer-events: none;
+}
+
+/* 颜色补丁 */
+.bg-primary-1 {
+	background-color: var(--color-primary-1) !important;
+}
+
+.bg-\[\#020203\]\/70 {
+	background-color: rgba(2, 2, 3, 0.7);
+}
+
+.bg-\[\#020203\] {
+	background-color: #020203;
+}
+
+.bg-white\/\[0\.04\] {
+	background-color: rgba(255, 255, 255, 0.04);
+}
+
+.text-primary-1 {
+	color: var(--color-primary-1) !important;
+}
+
+.text-white {
+	color: #fff;
+}
+
+.text-black {
+	color: #000;
+}
+
+.text-gray-new-90 {
+	color: #e5e7eb;
+}
+
+.text-gray-new-80 {
+	color: #d1d5db;
+}
+
+.text-gray-new-70 {
+	color: #9ca3af;
+}
+
+.text-gray-new-40 {
+	color: #6b7280;
+}
+
+.text-gray-500 {
+	color: #6b7280;
+}
+
+.text-red-500 {
+	color: #ef4444;
+}
+
+/* 边框补丁 */
+.border {
+	border-width: 1px;
+	border-style: solid;
+}
+
+.border-b {
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+.border-primary-1 {
+	border-color: var(--color-primary-1) !important;
+}
+
+
+.border-gray-new-15 {
+	border-color: var(--color-border-gray);
+}
+
+/* 交互状态 */
+.hover\:text-white:hover {
+	color: #fff;
+}
+
+.hover\:bg-\[\#00e5bf\]:hover {
+	background-color: #00e5bf;
+	opacity: 0.9;
+}
+
+.group:hover .group-hover\:text-primary-1 {
+	color: var(--color-primary-1);
+}
+
+/* 字体大小 */
+.text-xs {
+	font-size: 0.75rem;
+	line-height: 1rem;
+}
+
+.text-sm {
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+}
+
+.text-base {
+	font-size: 1rem;
+	line-height: 1.5rem;
+}
+
+.text-lg {
+	font-size: 1.125rem;
+	line-height: 1.75rem;
+}
+
+.text-xl {
+	font-size: 1.25rem;
+	line-height: 1.75rem;
+}
+
+.font-bold {
+	font-weight: 700;
+}
+
+.leading-none {
+	line-height: 1;
+}
+
+.leading-tight {
+	line-height: 1.25;
+}
+
+/* ================== 3. 输入框定制 ================== */
+.neon-input {
+	color: white !important;
+	background-color: rgba(255, 255, 255, 0.04);
+	border: 1px solid var(--color-border-gray);
+	transition: all 0.2s ease;
+}
+
+.neon-input:focus {
+	border-color: var(--color-primary-1);
+	box-shadow: 0 0 0 1px var(--color-primary-1);
+	background-color: rgba(0, 229, 191, 0.05);
+}
+
+/* Chrome 自动填充背景修复 */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	-webkit-box-shadow: 0 0 0 30px #131313 inset !important;
+	-webkit-text-fill-color: white !important;
+	caret-color: white;
+	transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ================== 4. 下拉菜单修复 (关键部分) ================== */
+
+/* 父容器定位基准 */
+.relative-box {
+	position: relative !important;
+	display: block;
+}
+
+/* 箭头图标垂直居中 */
+.arrow-icon {
+	position: absolute;
+	right: 15px;
+	top: 50%;
+	transform: translateY(-20%);
+	/* 修正因 margin-top 导致的偏移 */
+	pointer-events: none;
+	font-size: 12px;
+	z-index: 10;
+}
+
+/* 下拉框本体 */
+.selbox {
+	position: absolute;
+	left: 0;
+	top: 100%;
+	width: 100%;
+	margin-top: 5px;
+
+	background-color: #131313 !important;
+	/* 不透明黑色背景 */
+	border: 1px solid #333;
+	border-radius: 6px;
+
+	z-index: 9999 !important;
+	/* 确保层级最高 */
+
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+	max-height: 250px;
+	overflow-y: auto;
+
+	scrollbar-width: thin;
+	scrollbar-color: #444 #131313;
+}
+
+/* 滚动条 Webkit */
+.selbox::-webkit-scrollbar {
+	width: 6px;
+}
+
+.selbox::-webkit-scrollbar-track {
+	background: #131313;
+}
+
+.selbox::-webkit-scrollbar-thumb {
+	background: #444;
+	border-radius: 3px;
+}
+
+/* 选项 */
+.selbox li {
+	padding: 12px 15px;
+	font-size: 14px;
+	color: #e5e5e5;
+	cursor: pointer;
+	border-bottom: 1px solid #222;
+	background-color: #131313;
+}
+
+.selbox li:hover {
+	background-color: #00e5bf !important;
+	/* Neon 绿 */
+	color: #000 !important;
+	/* 黑字 */
+	font-weight: bold;
+}
+
+.selbox.hidden {
+	display: none !important;
+}
+
+/* ================== 5. 其他组件 ================== */
+/* 验证码按钮 */
+#GetCode {
+	transition: color 0.3s;
+}
+
+#GetCode.eight {
+	color: #666 !important;
+	cursor: not-allowed;
+}
+
+/* 复选框颜色 */
+.accent-primary-1 {
+	accent-color: var(--color-primary-1);
+}
+
+/* 方案选中状态 */
+.plan-card.active {
+    border-color: #00e5bf !important;
+    background-color: rgba(0, 229, 191, 0.05) !important; /* 微弱的绿色背景 */
+    box-shadow: 0 0 15px rgba(0, 229, 191, 0.1);
+}
+
+/* 选中时圆圈变成实心 */
+.plan-card.active .radio-circle {
+    border-color: #00e5bf;
+}
+.plan-card.active .radio-circle div {
+    opacity: 1; /* 显示中间的圆点 */
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+	.grid-cols-2 {
+		grid-template-columns: 1fr !important;
+	}
+
+	.gap-6 {
+		gap: 1rem;
+	}
+
+	.p-8 {
+		padding: 1.5rem;
+	}
+	
+	.Back{
+			top: 20px;
+			right: 20px;
+		}
+}

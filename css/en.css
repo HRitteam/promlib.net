@@ -1,0 +1,328 @@
+/*公用样式调整*/
+.text{
+	letter-spacing: 0;
+}
+a.btn{
+	font-size: 14px;
+	letter-spacing: 0;
+	width: 240px;
+}
+
+/*导航修改*/
+.navone .toLogin a{
+	font-size: 12px;
+	padding: 0 10px;
+}
+.navone .hasLogin{
+	font-size: 12px;
+}
+.navone ul li a{
+	font-size: 12px;
+}
+.navtwo ul li a{
+	font-size: 12px;
+}
+
+/*首页修改*/
+.content h4{
+	font-size: 17px;
+}
+.wrap2>div{
+	/*width: 400px;
+	margin-left: -200px;*/
+	letter-spacing: 0;
+}
+.index4 ul li div{
+	height: 220px;
+}
+.index4 ul li div h3{
+	font-size: 17px;
+	font-weight: bold;
+}
+
+/*专家团队*/
+.team li .msg h4{
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+.teamDetail li>.msg .text{
+	color: #000;
+}
+
+
+/*会员服务*/
+.wrap2 table.tab01 td{
+	padding: 4px;
+	font-size: 14px;
+}
+.wrap2 table.tab02 td{
+	font-size: 14px;
+	letter-spacing: 0;
+}
+.wrap3 .content ul li>.msg{
+	width: 600px;
+	margin-left: 20px;
+	padding-left: 20px;
+}
+.wrap3 .content ul li>.msg .text{
+	font-size: 13px;
+	line-height: 24px;
+}
+.article01 h3{
+	font-size: 24px;
+	letter-spacing: 0;
+}
+.article02 .msg{
+	width: 760px;
+	line-height: 1.7;
+}
+.article02 .block{
+	margin-top: 20px;
+}
+.article03 h3{
+	font-size: 24px;
+}
+.article04_1 h3{
+	font-size: 24px;
+	margin: 30px 0;
+}
+.article04_1 .text{
+	text-align: center;
+	line-height: 1.7;
+}
+.article05_1 h3{
+	margin: 40px 0 20px 0;
+}
+.article05_1 .text{
+	padding: 15px 0;
+}
+.article05_1 .msg{
+	margin-top: 20px;
+	width: 720px;
+	line-height: 1.7;
+}
+.article06_1 .text{
+	text-align: center;
+	line-height: 1.7;
+}
+.article07_2 h3{
+	font-size: 32px;
+}
+.article08_1 .text{
+	margin-top: 20px;
+	font-size: 22px;
+	text-align: center;
+	line-height: 1.7;
+}
+.article09 h3{
+	font-size: 26px;
+	width: 640px;
+	font-weight: normal;
+	margin-top: 40px;
+}
+
+
+/*硅谷课程*/
+.kuang .front{
+	font-size: 17px;
+	letter-spacing: 0;
+}
+
+/*资料下载*/
+.wrap1 #formTitle{
+	letter-spacing: 0;
+}
+
+/*常见问题*/
+.question{
+	padding: 20px;
+}
+.question li .ask{
+	letter-spacing: 0;
+}
+.question li .answer{
+	letter-spacing: 0;
+}
+
+
+/*联系我们add style*/
+.wrap_contact{
+	height: 1000px;
+}
+
+/*会员专区*/
+[class*='sec'] .btn_block a{
+	letter-spacing: 0;
+	font-size: 16px;
+}
+[class*='sec'] h2{
+	font-size: 26px;
+}
+[class*='sec'] .msg{
+	letter-spacing: 0;
+}
+[class*='sec'] .btn_block{
+	margin-top: 30px;
+}
+.sec2 li{
+	height: 46px;
+}
+.sec2 li a{
+	font-size: 16px;
+}
+.sec2 li:hover>p{
+	width: 60%;
+}
+.sec3 .msg{
+	font-size: 15px;
+}
+.sec4 .msg{
+	margin-top: 20px;
+}
+.sec5 .left .btn_block a{
+	width: 250px;
+	font-size: 14px;
+}
+.sec11A .tab th>img{
+	left: 26px;
+}
+.sec11A .tab tr td{
+	letter-spacing: 0;
+	font-size: 14px;
+}
+.sec11A .tab tr td a{
+	width: 200px;
+	font-size: 13px;
+}
+
+
+
+@media screen and (max-width: 768px){
+	/*移动端导航修改*/
+	.ma{
+		padding: 8px 12%;
+	}
+	.ma a{
+		font-size: 13px;
+		padding: 8px;
+	}
+	.topheadM .toLogin a{
+		font-size: 12px;
+	}
+	
+	/*首页*/
+	.wrap2>div{
+		width: 100%;
+		margin-left: 0;
+	}
+	.index4 ul li div{
+		height: 200px;
+	}
+	.index4 ul li div h3{
+		font-size: 15px;
+		font-weight: bold;
+	}
+	
+	/*会员服务*/
+	.wrap3 .content_m ul{
+		padding: 15px;
+	}
+	.article01 h3{
+		font-size: 17px;
+	}
+	.article02{
+		height: auto;
+	}
+	.article02 .msg{
+		width: 100%;
+		font-size: 13px;
+	}
+	.article03 h3{
+		font-size: 17px;
+	}
+	.article04_1 h3{
+		font-size: 17px;
+	}
+	.article05_1{
+		height: auto;
+	}
+	.article05_1 .text{
+		text-align: center;
+		font-size: 17px;
+	}
+	.article05_1 .msg{
+		width: 100%;
+	}
+	.article06_1 .text{
+		margin-top: 20px;
+	}
+	.article06_2 h3{
+		font-size: 19px;
+	}
+	.article07_2 h3{
+		font-size: 22px;
+	}
+	.article08_1 .text{
+		font-size: 15px;
+	}
+	.article09 h3{
+		width: 100%;
+		font-size: 18px;
+		margin-top: 20px;
+	}
+	
+	/*会员专区*/
+	[class*='sec'] h2{
+		font-size: 22px;
+		line-height: 1.5;
+	}
+	[class*='sec'] .btn_block{
+		margin-top: 15px;
+	}
+	[class*='sec'] .btn_block a{
+		font-weight: normal;
+		font-size: 14px;
+	}
+	.sec3 .msg{
+		font-size: 13px;
+	}
+	.sec5 .left .btn_block{
+		display: block;
+	}
+	.sec5 .left .btn_block a{
+		margin: 10px auto;
+	}
+	.sec11A .tabM table th>img{
+		left: 20%;
+	}
+	.sec11A .tabM table tr td{
+		letter-spacing: 0;
+	}
+	
+	
+	/*硅谷课程*/
+	.kuang .front{
+		font-size: 15px;
+	}
+	.guigu1 .msg{
+		margin-top: 20px;
+	}
+	.guigu2 li .title>span{
+		font-size: 15px;
+	}
+	
+	/*常见问题*/
+	.question{
+		padding: 15px;
+	}
+	.question li .ask{
+		width: 100%;
+	}
+	
+	/*联系我们add style*/
+	.wrap_contact{
+		height: auto;
+	}
+}

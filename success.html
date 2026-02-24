@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- 强制不缓存 -->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Payment Successful_Expert-Level AI Prompt Library</title>
+    <!-- 引入自定义样式 -->
+    <link rel="stylesheet" type="text/css" href="https://aicamp.hrflag.com/css/neon.css" />
+
+    <!-- 本页面的特有样式 -->
+    <style>
+        .bg-black:before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/aiprompts/TSCbg.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+
+        /* 票据卡片：白底 + 霓虹阴影 */
+        .ticket-card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px -10px rgba(0, 229, 191, 0.4);
+            position: relative;
+            overflow: hidden;
+            color: #1f2937;
+        }
+
+        /* 顶部装饰条 */
+        .ticket-top-bar {
+            height: 8px;
+            background: linear-gradient(90deg, #00e5bf 0%, #00a88d 100%);
+            width: 100%;
+        }
+
+        /* 复制按钮样式覆盖 */
+        .btn-copy {
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+
+        .btn-copy:hover {
+            background: #e5e7eb;
+            color: #000;
+        }
+
+        /* 步骤卡片 */
+        .step-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #2e2e2e;
+            transition: transform 0.2s;
+        }
+
+        .step-card:hover {
+            border-color: #00e5bf;
+            background: rgba(0, 229, 191, 0.05);
+        }
+
+        /* 声明区域 */
+        .disclaimer-box {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .ptips {
+            justify-content: center;
+        }
+
+        .layui-layer-dialog .layui-layer-padding {
+            color: #000;
+        }
+
+        .d-flex{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .d-flex_text{
+            font-size: 20px;
+            margin-left: 6px;
+        }
+
+        #loginUrl{
+            word-break: break-all;
+        }
+
+        @media screen and (max-width: 768px) {
+            .form-container {
+                padding: 0 10px;
+            }
+
+            .grid-cols-3 {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+            }
+
+            .ptips {
+                justify-content: flex-start;
+                text-align: left;
+            }
+			
+			.copy_box {
+				flex-wrap: wrap!important;
+			}
+			
+			.p-8 {
+				padding: 1rem!important;
+			}
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <div class="form-container" style="max-width: 800px; padding-bottom: 80px;margin: auto;position: relative;">
+
+        <!-- 1️⃣ 顶部：支付成功通知 -->
+        <div class="text-center py-10 animation-fade-in">
+            <!-- 动态对勾图标 -->
+            <div class="d-flex mb-6">
+                <div class="inline-flex items-center justify-center rounded-full bg-[#00e5bf]/20">
+                    <img style="width: 32px;" src="https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/%E6%88%90%E5%8A%9F%E6%8F%90%E7%A4%BA.svg" alt="" />
+                </div>
+                <div class="d-flex_text">
+                    支付成功！
+                </div>
+            </div>
+
+            <h1 id="pageTitle" class="text-3xl md:text-3xl font-bold text-white mb-3">AI提示词库服务已开通</h1>
+            <p class="text-sm text-gray-500 flex ptips">📩 <i>已向您的邮箱发送登录入口和使用说明，请查收。</i></p>
+        </div>
+
+        <!-- 2️⃣ 核心：账号信息卡片 (Neon 深色背景风格) -->
+        <div class="relative w-full overflow-hidden rounded-lg bg-[#0D0E10] mb-10 mx-auto transform transition hover:scale-[1.01] duration-300">
+
+            <!-- 背景装饰层 -->
+            <div class="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]" aria-hidden="true">
+                <img alt="" loading="lazy" width="617" height="776" decoding="async" class="absolute right-0 top-0 h-[776px] w-[617px]" style="color:transparent; opacity: 0.6;" src="https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/aiprompts/icon/bg-r.avif">
+                <img alt="" loading="lazy" width="389" height="339" decoding="async" class="absolute bottom-0 left-0 h-[339px] w-[389px]" style="color:transparent; opacity: 0.6;" src="https://hrflagfile.oss-cn-hangzhou.aliyuncs.com/Web/aiprompts/icon/bg-l.avif">
+                <div class="absolute inset-0 rounded-[inherit] border border-white mix-blend-overlay opacity-10"></div>
+            </div>
+
+            <!-- 内容层 -->
+            <div class="relative z-10 p-8 md:p-10">
+
+                <!-- 标题区 -->
+                <div class="flex justify-between items-center mb-6 border-b border-gray-800 pb-4">
+                    <h2 class="text-2xl font-bold text-white flex items-center">
+                        <span class="text-2xl mr-2">📱</span> 账号信息
+                    </h2>
+                    <span class="px-3 py-1 bg-[#00e5bf]/20 text-[#00e5bf] border border-[#00e5bf]/30 text-xs font-bold rounded-full" style="border-color: rgb(0 229 153);color: rgb(0 229 153);">已激活</span>
+                </div>
+
+                <!-- 信息列表 -->
+                <div class="space-y-4 text-sm md:text-base mb-8">
+                    <div class="flex flex-col md:flex-row">
+                        <span class="text-gray-400 w-[100px] shrink-0">登录账号：</span>
+                        <span class="font-mono text-xl font-bold text-white tracking-wide" id="userPhone">Loading...</span>
+                    </div>
+                    <div class="flex flex-col md:flex-row">
+                        <span class="text-gray-400 w-[100px] shrink-0">登录方式：</span>
+                        <span class="font-medium text-gray-200">在登录页选择「手机号 + 验证码登录」或「上述手机号对应的微信扫码登录」</span>
+                    </div>
+                    <div class="flex flex-col md:flex-row">
+                        <span class="text-gray-400 w-[100px] shrink-0">服务名称：</span>
+                        <span class="font-bold text-gray-200" id="serviceName">专家级AI提示词库会员</span>
+                    </div>
+                    <div class="flex flex-col md:flex-row">
+                        <span class="text-gray-400 w-[100px] shrink-0">账号有效期：</span>
+                        <span class="font-bold text-primary-1" id="validityPeriod">Loading...</span>
+                    </div>
+                    <div class="flex flex-col md:flex-row">
+                        <span class="text-gray-400 w-[100px] shrink-0">登录入口：</span>
+                        <div class="flex items-center gap-2 copy_box">
+                            <a id="loginUrl" style="text-decoration: underline;font-size: 15px;cursor: pointer;margin-right: 8px;" target="_blank" href="https://prompts.hrflag.com/login.html">https://prompts.hrflag.com/login.html</a>
+
+                            <button onclick="copyUrl()" class="whitespace-nowrap px-4 py-2 rounded text-sm font-semibold transition-colors flex items-center bg-white/10 text-white hover:bg-white/20 border border-white/10">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                                复制链接
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 按钮区 -->
+                <div class="flex flex-col gap-3">
+                    <a style="width: 200px;margin: auto;" href="https://prompts.hrflag.com/login.html" target="_blank"
+                        class="login-btn inline-flex cursor-pointer items-center justify-center font-bold !leading-none text-center whitespace-nowrap rounded-full transition-colors duration-200 outline-none bg-primary-1 text-black hover:bg-[#00e5bf] h-10 px-7 text-base !font-semibold tracking-tighter sm:w-full sm:max-w-sm">
+                        登录/Log In
+                    </a>
+                </div>
+
+                <!-- 截图提示 -->
+                <div class="mt-6 text-center pt-2">
+                    <p class="text-sm text-gray-500 flex items-center justify-center">
+                        <svg style="color: yellow;" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                            </path>
+                        </svg>
+                        为避免遗忘，建议<span class="text-gray-300 font-bold mx-1">本页截屏</span>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 3️⃣ 使用引导区 -->
+        <div class="mb-12">
+            <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+                <span class="mr-2">🚀</span> 3 步快速开始使用
+            </h3>
+
+            <div class="grid grid-cols-3 gap-2 md:gap-4">
+                <!-- Step 1 -->
+                <div class="step-card p-3 md:p-6 rounded-xl flex flex-col h-full">
+                    <div class="text-primary-1 text-2xl md:text-4xl font-black mb-1 md:mb-2 opacity-50">01</div>
+                    <h4 class="text-white font-bold mb-1 md:mb-2 text-sm md:text-base">打开登录页面</h4>
+                    <p class="text-xs md:text-sm text-gray-400 leading-relaxed">点击上方「登录/Log In」按钮或复制上方登陆链接至浏览器中打开。</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="step-card p-3 md:p-6 rounded-xl flex flex-col h-full">
+                    <div class="text-primary-1 text-2xl md:text-4xl font-black mb-1 md:mb-2 opacity-50">02</div>
+                    <h4 class="text-white font-bold mb-1 md:mb-2 text-sm md:text-base">选择登录方式</h4>
+                    <p class="text-xs md:text-sm text-gray-400 leading-relaxed">选择「手机号 + 验证码」或「登陆账号对应的微信扫码」登录。</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="step-card p-3 md:p-6 rounded-xl flex flex-col h-full">
+                    <div class="text-primary-1 text-2xl md:text-4xl font-black mb-1 md:mb-2 opacity-50">03</div>
+                    <h4 class="text-white font-bold mb-1 md:mb-2 text-sm md:text-base">开始使用</h4>
+                    <p class="text-xs md:text-sm text-gray-400 leading-relaxed">登录后即可浏览全部内容，一键复制使用。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4️⃣ 重要说明与免责声明 -->
+        <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+            <span class="mr-2"><svg style="color: yellow;" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                    </path>
+                </svg></span>重要说明（请仔细阅读）
+        </h3>
+
+        <div class="disclaimer-box p-6 rounded-xl mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-400 leading-relaxed">
+                <!-- 左侧列 -->
+                <div class="space-y-4">
+                    <!-- 条款 1 -->
+                    <div class="flex items-start">
+                        <span class="text-primary-1 mr-2 mt-[2px] text-xs shrink-0">◆</span>
+                        <div>
+                            <strong class="text-gray-300 block mb-1">虚拟商品说明</strong>
+                            <p>本服务为虚拟内容型在线产品，自账号开通，视为服务已交付完成。由于产品形态为虚拟内容服务，购买后不支持退款（除非法律法规另有强制性规定）。请您在支付前充分确认购买需求。</p>
+                        </div>
+                    </div>
+                    <!-- 条款 3 -->
+                    <div class="flex items-start">
+                        <span class="text-primary-1 mr-2 mt-[2px] text-xs shrink-0">◆</span>
+                        <div>
+                            <strong class="text-gray-300 block mb-1">账号有效期</strong>
+                            <p>您的账号到期后将自动失效，如需继续使用，请提前续费开通新的服务周期。</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 右侧列 -->
+                <div class="space-y-4">
+                    <!-- 条款 4 -->
+                    <div class="flex items-start">
+                        <span class="text-primary-1 mr-2 mt-[2px] text-xs shrink-0">◆</span>
+                        <div>
+                            <strong class="text-gray-300 block mb-1">账号使用规范（严禁转借/共享）</strong>
+                            <p>账号与手机号一一对应，仅限购买用户本人使用。严禁以任何形式转借、出租、共享或售卖账号给第三方。如平台发现异常共享、恶意传播等行为，有权在不另行通知的情况下对账号进行限制或终止服务，且不予退款。</p>
+                        </div>
+                    </div>
+                    <!-- 条款 5 -->
+                    <div class="flex items-start">
+                        <span class="text-primary-1 mr-2 mt-[2px] text-xs shrink-0">◆</span>
+                        <div>
+                            <strong class="text-gray-300 block mb-1">使用责任说明</strong>
+                            <p>平台提供的是相关内容服务，不保证任何特定业务或财务结果。基于内容做出的决策与操作由用户自行负责。不得将本产品用于违法或违规用途。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5️⃣ 客服与底部 -->
+        <div class="text-left border-t border-gray-800 pt-8 pb-10">
+            <h3 class="text-lg font-bold text-white mb-4">💬 如需帮助，请联系我们</h3>
+            <div class="flex flex-col justify-center gap-4  text-gray-400 text-sm mb-8">
+                <span>客服电话：021-6840-5597</span>
+                <span>客服邮箱：marketing@hrflag.com</span>
+                <span>服务时间：工作日 09:00—17:30</span>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a style="width: 200px;margin: auto;" href="https://prompts.hrflag.com/login.html"
+                    class="login-btn inline-flex cursor-pointer items-center justify-center font-bold !leading-none text-center whitespace-nowrap rounded-full transition-colors duration-200 outline-none px-9 h-12 font-medium tracking-tighter lg:h-11 lg:px-11 xs:h-10 xs:text-sm bg-primary-1 text-black hover:bg-[#00e5bf] !px-8 font-semibold md:!px-7">
+                    登录/Log In
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 脚本 -->
+    <script charset="UTF-8" src="https://static.hrflag.com/js/jquery-3.3.1.min.js"></script>
+    <script src="https://form.hrflag.com/Web/layui/layui.js"></script>
+    <script>
+            // 初始化 Layer
+            var layer;
+            if (typeof layui !== 'undefined') {
+                layui.use(['layer'], function() {
+                    layer = layui.layer;
+                });
+            }
+
+            // 获取URL参数的通用函数 (兼容 URLSearchParams)
+            function getQueryString(name) {
+                // 优先使用 URLSearchParams
+                if (typeof URLSearchParams !== 'undefined') {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    if(urlParams.has(name)) {
+                        return urlParams.get(name);
+                    }
+                }
+                // 降级使用正则
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+    
+            // 格式化日期
+            function formatDate(dateStr) {
+                if (!dateStr) return "";
+                return dateStr.split(" ")[0]; 
+            }
+
+    
+            // 初始化函数
+            function initPage() {
+                var phone = getQueryString("phone");
+                var BusinessType = getQueryString("BusinessType");
+                var Affiliated = BusinessType == '2' ? 'hrflag' : 'AI提示词库';
+                console.log("初始化页面: phone=", phone, "BusinessType=", BusinessType);
+    
+                // 1. 动态替换文案和链接
+                if (BusinessType == '2') {
+                    $("#pageTitle").text("生成式AI线上学习营系统已开通");
+                    $("#serviceName").text("生成式AI线上学习营系统");
+                    var newLoginUrl = "https://aicamp.hrflag.com/personal/login.html";
+                    $("#loginUrl").text(newLoginUrl);
+                    $("#loginUrl").attr("href", newLoginUrl);
+                    $(".login-btn").attr("href", newLoginUrl);
+                }
+    
+                // 2. 调用接口获取数据
+                if (phone) {
+                    $.ajax({
+                        url: 'https://form.hrflag.com/WxSpAPI/TestQuestionsInfo/SelUserInfo_AIWEB?Phone='+ phone +'&Affiliated=' + Affiliated,
+                        type: 'post',
+                        dataType: 'json',
+                        success: function(res) {
+                            console.log("接口返回:", res);
+                            if (res && res.length > 0) {
+                                var data = res[0];
+                                $("#userPhone").text(data.Phone);
+                                var startStr = formatDate(data.StartTime);
+                                var endStr = formatDate(data.ValidTime);
+                                $("#validityPeriod").text(startStr + " 至 " + endStr);
+                            } else {
+                                if (layer) layer.msg("未查询到用户信息");
+                            }
+                        },
+                        error: function(err) {
+                            console.error("接口错误:", err);
+                            // 失败时不弹窗打扰用户，或者只在控制台输出
+                        }
+                    });
+                } else {
+                    console.log("未获取到手机号参数");
+                }
+            }
+    
+            // 确保页面加载完成后执行
+            $(document).ready(function() {
+                initPage();
+            });
+    
+            // 复制链接功能
+            function copyUrl() {
+                var text = $("#loginUrl").text();
+
+                // ---- 1. 优先使用现代浏览器的 Clipboard API ----
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(function() {
+                        if (layer) layer.msg('登录链接已复制！', { icon: 1, time: 1500 });
+                        else alert('登录链接已复制！');
+                    }).catch(function(err) {
+                        fallbackCopyText(text);
+                    });
+                } else {
+                    // ---- 2. 老浏览器使用 fallback ----
+                    fallbackCopyText(text);
+                }
+            }
+
+            // ---- fallback：使用 input + execCommand（兼容 IE / 较老浏览器） ----
+            function fallbackCopyText(text) {
+                var tempInput = document.createElement("input");
+                tempInput.value = text;
+                document.body.appendChild(tempInput);
+
+                tempInput.select();
+                tempInput.setSelectionRange(0, text.length); // 兼容移动端
+
+                var success = false;
+                try {
+                    success = document.execCommand("copy");
+                } catch (err) {}
+
+                document.body.removeChild(tempInput);
+
+                if (success) {
+                    if (layer) layer.msg('登录链接已复制！', { icon: 1, time: 1500 });
+                    else alert('登录链接已复制！');
+                } else {
+                    if (layer) layer.msg('复制失败，请手动复制', { icon: 2 });
+                    else alert('复制失败，请手动复制');
+                }
+            }
+        </script>
+</body>
+</html>

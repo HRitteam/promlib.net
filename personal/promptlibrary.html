@@ -1,0 +1,643 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Expert-Level AI Prompt Library</title>
+    <link href="./dist/css/tabler.min.css?1692870487" rel="stylesheet" />
+    <script src="./js/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/neon.css" />
+    <style>
+      .content:before {
+        content: "";
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background: #000;
+      }
+
+      .pageloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #222;
+      }
+
+      .content {
+        position: relative;
+        padding: 32px 20px 20px 20px;
+        background: transparent;
+        min-height: 100vh;
+      }
+
+      .library {
+        position: relative;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+
+      .library_header {
+        width: 100%;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .header_box {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .header_left {
+        color: rgb(209 213 219);
+      }
+
+      .header_left .text {
+        color: rgb(209 213 219);
+        font-size: 12px;
+      }
+
+      .header_right {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+
+      .page-title {
+        font-size: 24px;
+        margin: 0;
+        font-weight: bold;
+        font-family: "微软雅黑", "Microsoft YaHei", "Arial", sans-serif;
+        color: #fff;
+        margin-bottom: 10px;
+      }
+
+      .right_btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #00000099;
+      }
+
+      .search_box {
+        width: 384px;
+        position: relative;
+      }
+
+      .search_input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #fff;
+        font-size: 14px;
+        padding: 8px 80px 8px 12px;
+        height: 40px;
+      }
+
+      .search_input::placeholder {
+        color: rgb(156 163 175);
+      }
+
+      .search_close {
+        color: rgb(156 163 175);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 5px;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .search_close svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .search_close:hover {
+        background: #ffffff1a;
+      }
+
+      .search_btn {
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 14px;
+        cursor: pointer;
+      }
+
+      .cut_btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 0, 0, 0.8) 0%,
+          rgba(40, 40, 40, 0.6) 100%
+        );
+        border-color: rgba(255, 255, 255, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 14px;
+        cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 16px 0px;
+        flex-shrink: 0;
+      }
+
+      .cut_btn:hover {
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .search_btn svg {
+        width: 18px;
+        height: 18px;
+        --tw-text-opacity: 1;
+        color: rgb(0 229 153 / var(--tw-text-opacity));
+      }
+
+      .cut_btn svg {
+        width: 18px;
+        height: 18px;
+        color: #fff;
+      }
+
+      .cut_btn {
+        margin-right: 14px;
+        margin-left: 0;
+      }
+
+      .library_box {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-top: 36px;
+      }
+
+      .item {
+        border: 1px solid rgb(36 38 40);
+        width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.5s ease;
+        cursor: pointer;
+        background-image: url(https://neon.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fglass.41d7fc79.jpg&w=1080&q=75&dpl=dpl_CgU7PCC7eQZJbcXEbqiE6azvrpnd);
+        background-position: left;
+        background-size: cover;
+      }
+
+      .item:hover {
+        transform: scale(1.02);
+      }
+
+      .item_img {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .item_img img {
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .new_tips {
+        background: linear-gradient(
+          135deg,
+          rgba(220, 38, 38, 0.9) 0%,
+          rgba(239, 68, 68, 0.9) 100%
+        );
+        color: #fff;
+        font-weight: bold;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+      }
+
+      .none {
+        display: none;
+      }
+
+      .item_img::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.8) 0%,
+          rgba(0, 0, 0, 0.3) 50%,
+          transparent 100%
+        );
+      }
+
+      .item_b {
+        padding: 16px;
+      }
+
+      .item_b .title {
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      .item_b .text {
+        color: rgb(209 213 219);
+        font-size: 14px;
+      }
+
+      .no_data {
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
+        color: #fff;
+        padding: 50px 0;
+      }
+
+      .library_back {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        color: rgb(209 213 219);
+        font-size: 14px;
+        height: 40px;
+        margin-left: 14px;
+      }
+
+      .library_back svg {
+        width: 16px;
+        height: 16px;
+        margin-right: 4px;
+      }
+
+      @media screen and (max-width: 1400px) {
+        .library_box {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media screen and (max-width: 1000px) {
+        .library_box {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 768px) {
+        .header_box {
+          display: block;
+        }
+
+        .search_box,
+        .right_btn {
+          width: 100%;
+        }
+
+        .right_btn {
+          margin-top: 16px;
+        }
+
+        .library_box {
+          grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+
+        .content {
+          padding: 20px 10px 10px;
+        }
+
+        .library_box {
+          margin-top: 20px;
+        }
+
+        .search_input {
+          padding-right: 40px;
+        }
+
+        .page-title {
+          font-size: 18px;
+        }
+      }
+
+      .search_box {
+        width: 384px;
+        position: relative;
+      }
+
+      .search_icon {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        transform: translateY(-50%);
+        color: rgb(156 163 175);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .search_icon svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .search_input {
+        width: 100%;
+        height: 40px;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #fff;
+        font-size: 14px;
+        padding: 8px 40px 8px 40px;
+        /* 左侧多留 icon 位置 */
+      }
+
+      .search_input::placeholder {
+        color: rgb(156 163 175);
+      }
+
+      .search_close {
+        position: absolute;
+        right: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        color: rgb(156 163 175);
+      }
+
+      .search_close:hover {
+        background: #ffffff1a;
+      }
+
+      @media (max-width: 768px) {
+        .search_box {
+          width: 100%;
+        }
+
+        .search_input {
+          padding-right: 40px;
+          padding-left: 40px;
+          /* 依然要给图标位置 */
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="pageloader">
+      <div class="container container-slim py-4">
+        <div class="text-center">
+          <div class="text-white mb-3">Loading…</div>
+          <div class="progress progress-sm">
+            <div class="progress-bar progress-bar-indeterminate"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="vue_app">
+      <div class="page">
+        <div id="header"></div>
+        <div class="page-wrapper">
+          <div class="content">
+            <div class="bg"></div>
+            <div class="library">
+              <div class="library_header">
+                <div class="header_box">
+                  <div class="header_left">
+                    <h2 class="page-title">AI Prompts（{{ allCount }}）</h2>
+                    <div class="text">
+                      AI prompts for ChatGPT, Gemini, Grok, Claude,DeepSeek,
+                      Kimi, GLM, doubao, Qwen
+                    </div>
+                  </div>
+                  <div class="header_right">
+                    <div class="right_btn">
+                      <div
+                        class="search_box max-w-full overflow-hidden rounded-full border border-gray-new-15 bg-black-new"
+                      >
+                        <input
+                          class="search_input"
+                          v-model="libraryName"
+                          placeholder="Search Department"
+                          type="text"
+                          @keyup.enter="searchLibrary"
+                        />
+                        <div class="search_close" @click="deleteInput">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="lucide lucide-x w-4 h-4 text-gray-400"
+                          >
+                            <path d="M18 6 6 18"></path>
+                            <path d="m6 6 12 12"></path>
+                          </svg>
+                        </div>
+
+                        <div class="search_icon">
+                          <!-- 你的搜索 SVG -->
+                          <svg
+                            @click="searchLibrary"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="lucide lucide-search"
+                          >
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="library_box">
+                  <div
+                    class="item"
+                    v-for="(item, index) in libraryData"
+                    :key="index"
+                    @click="goSubList(item.CategoryID)"
+                  >
+                    <div class="item_img">
+                      <img :src="item.IconCode" alt="Cover" />
+                    </div>
+                    <div class="item_b">
+                      <div class="title">{{item.CategoryName_EN}}</div>
+                      <div
+                        class="bg-[linear-gradient(73deg,#7F95EB_1%,#89E0EA_33%,#EFEFEF_81%)] bg-clip-text font-semibold leading-none tracking-tighter text-transparent"
+                      >
+                        {{ `${item.PromptCount}+ Prompts` }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="no_data" v-if="isNaN">No data available</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<!-- Tabler Core -->
+<script src="../js/jquery-3.3.1.min.js" charset="UTF-8"></script>
+<script src="./js/header.js"></script>
+<script src="./js/cookies.js"></script>
+<script src="./js/config.js"></script>
+
+<script>
+  var aiEmail = getCookie("aiEmail");
+  $($(".left_navbar .nav_li")[0])
+    .addClass("active")
+    .siblings()
+    .removeClass("active");
+  $(".left_navbar .active img").attr(
+    "src",
+    "./static/b26.svg",
+  );
+
+  var app = new Vue({
+    el: "#vue_app",
+    data: {
+      libraryName: "", // 搜索
+      page: 1, //分页
+      libraryData: [], // 数据
+      isEn: true, // 是否英文版
+      isNaN: false, // 是否有数据
+    },
+    watch: {
+      libraryName(newVal) {
+        if (newVal === "") {
+          this.page = 1;
+          this.getListData(); // 输入清空时自动刷新
+        }
+      },
+    },
+    computed: {
+      allCount() {
+        const total = this.libraryData.reduce((sum, item) => {
+          // 先把 PromptCount 转成字符串并去掉逗号
+          const num = Number(String(item.PromptCount || 0).replace(/,/g, ""));
+
+          return sum + num;
+        }, 0);
+
+        return total.toLocaleString(); // 再转千分位输出
+      },
+    },
+    mounted() {
+      this.getListData();
+      return;
+      if (!aiEmail) {
+        location.href = "../login.html";
+      } else {
+        this.getListData();
+      }
+    },
+    methods: {
+      // 搜索
+      searchLibrary() {
+        this.page = 1;
+        $(".pageloader").attr(
+          "style",
+          "display: flex;background: rgba(0, 0, 0, 0.5);",
+        );
+        this.getListData();
+      },
+
+      //切换语言
+      cutLanguage() {
+        this.isEn = !this.isEn;
+      },
+
+      //删除搜索
+      deleteInput() {
+        this.page = 1;
+        this.libraryName = [];
+        $(".pageloader").attr(
+          "style",
+          "display: flex;background: rgba(0, 0, 0, 0.5);",
+        );
+        this.getListData();
+      },
+
+      // 跳转子列表
+      goSubList(id) {
+        location.href = `./promptlibrarylist.html?id=${id}`;
+      },
+
+      // 获取列表
+      getListData() {
+        let that = this;
+        $.ajax({
+          async: true,
+          type: "POST",
+          url: `http://3.238.5.209:8888/api/auth/GetPagedCategoriesWithCount?page=${that.page}&limit=100&sortOrder=ASC&Type=1&Inquire=${that.libraryName}`,
+          dataType: "json",
+          success: function (data) {
+            if (data.data.length == 0 && that.page == 1) {
+              that.isNaN = true;
+            } else {
+              that.isNaN = false;
+            }
+            that.libraryData = data.data;
+            $(".pageloader").hide();
+          },
+        });
+      },
+    },
+  });
+</script>
