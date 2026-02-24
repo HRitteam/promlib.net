@@ -121,7 +121,7 @@ $(window).ready(function() {
 	}
 	// --- 登录/Token 校验逻辑 ---
 	$.ajax({
-		url: `http://3.238.5.209:8888/api/auth/IsSessionValid?email=${aiEmail}&clientTicks=${token}`,
+		url: `https://promlib.net/api/auth/IsSessionValid?email=${aiEmail}&clientTicks=${token}`,
 		async: true,
 		type: "POST",
 		dataType: 'json',

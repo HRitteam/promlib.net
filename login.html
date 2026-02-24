@@ -471,12 +471,17 @@
 
     <script>
       function handleCredentialResponse(res) {
+        if (!res || !res.credential) {
+          $("#modal-danger").modal("show");
+          return;
+        }
+
         console.log("Google ID Token:", JSON.stringify(res));
         $(".pageloader").attr("style", "display: flex;");
         $.ajax({
           async: true,
           type: "POST",
-          url: `http://3.238.5.209:8888/api/auth/GoogleToken`,
+          url: `https://promlib.net/api/auth/GoogleToken`,
           data: {
             IdToken: res.credential,
           },
@@ -493,29 +498,38 @@
             }
             $(".pageloader").hide();
           },
+          error: function () {
+            $("#modal-danger").modal("show");
+          },
+          complete: function () {
+            $(".pageloader").hide();
+          }
         });
       }
 
-      google.accounts.id.initialize({
-        client_id: "508891237674-e34sjkljehjb46s3jvm6df3tkls8laje.apps.googleusercontent.com",
-        callback: handleCredentialResponse
+      $(window).ready(function () {
+        // 监听谷歌按钮的点击事件，触发谷歌登录流程
+        google.accounts.id.initialize({
+          client_id: "508891237674-e34sjkljehjb46s3jvm6df3tkls8laje.apps.googleusercontent.com",
+          callback: handleCredentialResponse
+        });
+
+        // 获取父容器的实际宽度，确保 iframe 撑满
+        const parentWidth = document.getElementById('google_button_proxy').offsetWidth;
+
+        google.accounts.id.renderButton(
+          document.getElementById("google_button_proxy"), 
+          { 
+            type: "standard", 
+            shape: "rectangular", 
+            theme: "outline", 
+            size: "large", 
+            width: parentWidth,
+            height: 50,
+            locale: "en" 
+          }
+        );
       });
-
-      // 获取父容器的实际宽度，确保 iframe 撑满
-      const parentWidth = document.getElementById('google_button_proxy').offsetWidth;
-
-      google.accounts.id.renderButton(
-        document.getElementById("google_button_proxy"), 
-        { 
-          type: "standard", 
-          shape: "rectangular", 
-          theme: "outline", 
-          size: "large", 
-          width: parentWidth,
-          height: 50,
-          locale: "en" 
-        }
-      );
       
     </script>
   </body>

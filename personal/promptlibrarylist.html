@@ -775,7 +775,7 @@
       $.ajax({
         async: true,
         type: "POST",
-        url: "http://3.238.5.209:8888/api/auth/IsGoogleUser",
+        url: "https://promlib.net/api/auth/IsGoogleUser",
         dataType: "json",
         data: {
           Email: aiEmail,
@@ -839,9 +839,9 @@
       getListData(reset = false) {
         let that = this;
         that.loadingMore = true;
-        let url = `http://3.238.5.209:8888/api/auth/GetTopHotPromptsByIndustry?categoryId=${typeid}`;
+        let url = `https://promlib.net/api/auth/GetTopHotPromptsByIndustry?categoryId=${typeid}`;
         if (this.isVip || this.isSelect == 2) {
-          url = `http://3.238.5.209:8888/api/auth/GetPagedPromptsByCategoryNew?pageIndex=${that.page}&pageSize=21&categoryId=${typeid}&searchKeyword=${that.libraryName}&IsVip=${this.isVip ? 1 : 0}`;
+          url = `https://promlib.net/api/auth/GetPagedPromptsByCategoryNew?pageIndex=${that.page}&pageSize=21&categoryId=${typeid}&searchKeyword=${that.libraryName}&IsVip=${this.isVip ? 1 : 0}`;
         }
 
         $.ajax({

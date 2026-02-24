@@ -1389,7 +1389,7 @@
       $.ajax({
         async: true,
         type: "POST",
-        url: "http://3.238.5.209:8888/api/auth/IsGoogleUser",
+        url: "https://promlib.net/api/auth/IsGoogleUser",
         dataType: "json",
         data: {
           Email: aiEmail,
@@ -1463,7 +1463,7 @@
         $.ajax({
           async: true,
           type: "POST",
-          url: `http://3.238.5.209:8888/api/auth/GetPromptDetailsById?promptId=${did}`,
+          url: `https://promlib.net/api/auth/GetPromptDetailsById?promptId=${did}`,
           dataType: "json",
           success: function (data) {
             if (data.dataInfo) {
@@ -1482,7 +1482,7 @@
         $.ajax({
           async: true,
           type: "POST",
-          url: `http://3.238.5.209:8888/api/auth/AddPromptLog?Email=${aiEmail}&LogType=${type}&PromptId=${did}&Source=众旗学院`,
+          url: `https://promlib.net/api/auth/AddPromptLog?Email=${aiEmail}&LogType=${type}&PromptId=${did}&Source=众旗学院`,
           dataType: "json",
           success: function (data) {},
         });
@@ -1491,7 +1491,7 @@
       // 获取推荐列表
       getListData() {
         let that = this;
-        let url = `http://3.238.5.209:8888/api/auth/GetTopHotPromptsByIndustry?categoryId=${typeid}`;
+        let url = `https://promlib.net/api/auth/GetTopHotPromptsByIndustry?categoryId=${typeid}`;
         $.ajax({
           async: false,
           type: "POST",
@@ -1608,7 +1608,7 @@
         // !!! 注意：请将下面的URL替换为您的“提交反馈”接口 !!!
         $.ajax({
           type: "post",
-          url: `http://3.238.5.209:8888/api/auth/AddPromptFeedback`,
+          url: `https://promlib.net/api/auth/AddPromptFeedback`,
           dataType: "json",
           data: params,
           success: (res) => {

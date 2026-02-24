@@ -579,13 +579,13 @@
       },
     },
     mounted() {
-      this.getListData();
-      return;
       if (!aiEmail) {
         location.href = "../login.html";
       } else {
         this.getListData();
+        return false;
       }
+      
     },
     methods: {
       // 搜索
@@ -625,7 +625,7 @@
         $.ajax({
           async: true,
           type: "POST",
-          url: `http://3.238.5.209:8888/api/auth/GetPagedCategoriesWithCount?page=${that.page}&limit=100&sortOrder=ASC&Type=1&Inquire=${that.libraryName}`,
+          url: `https://promlib.net/api/auth/GetPagedCategoriesWithCount?page=${that.page}&limit=100&sortOrder=ASC&Type=1&Inquire=${that.libraryName}`,
           dataType: "json",
           success: function (data) {
             if (data.data.length == 0 && that.page == 1) {
